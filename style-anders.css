@@ -5,6 +5,8 @@
     font-family: "Lato Extended","Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+/* Global Stylings*/
+
 :root {
     --light-color-text: white;
     --dark-color-text: #4F4F4F;
@@ -35,6 +37,10 @@
 
 }
 
+html {
+    color: var(--light-mode-dark-seafoam);
+}
+
 #flexbox {
     display: flex;
     align-items: center;
@@ -42,6 +48,64 @@
     height: 100vh;
     width: 100vw;
 }
+
+#breadcrumb-nav-mobile {
+    display: none;
+}
+
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1vh 2vw;
+}
+
+#header {
+    margin-bottom: 5vh;
+}
+
+h1 {
+    margin-bottom: 1vh;
+}
+
+#nav-content {
+    display: flex;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 86vw;
+}
+
+.row-reverse {
+    flex-direction: row-reverse;
+}
+
+#booking-nav-desktop {
+    display: flex;
+    flex-direction: column;
+    width: 10vw;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: row;
+    color: var(--light-mode-seafoam);
+}
+
+.nav-item div {
+    color: var(--light-color-text);
+    padding-bottom: 1vh;
+}
+
+.active div, .active a {
+    color: var(--light-mode-dark-seafoam);
+}
+
+/* Login Styling */
 
 #login-form {
     display: flex;
@@ -85,4 +149,84 @@
     height: 2.5vh;
     padding-bottom: 0.5vh;
     font-weight: bold;
+}
+
+
+/* Mine Tider Styling*/
+#my-bookings hr:nth-child(2) {
+    margin-top: 0.5vh;
+    margin-bottom: 1.5vh;
+}
+
+#my-bookings hr:nth-child(n+3),
+.divider {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+#calendar div { /* STYLING FOR TEMPORARY BOX */
+    height: 75vh;
+    width: 40vw;
+    background-color: var(--light-mode-dark-grey);
+}
+
+#booking-headers {
+    display: flex;
+    color: var(--light-mode-seafoam);
+}
+
+#booking-headers h3,
+.date-time-location p {
+    width: 5vw;
+}
+
+#booking-headers h3:nth-child(2),
+.date-time-location p:nth-child(2) {
+    width: 7vw;
+}
+
+.date-time-location {
+    display: flex;
+    margin-bottom: 1.5vh;
+}
+
+#bookings {
+    overflow-y: scroll;
+    width: 40vw;
+}
+
+.booking {
+    display: flex;
+    height: 7vh;
+}
+
+.booking-details {
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.organizer {
+    font-weight: bold;
+}
+
+.update-delete-booking {
+    flex-grow: 1;
+}
+
+.update-delete-booking input {
+    height: 7vh;
+    width: 7vh;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+#update-submit {
+    background-color: var(--light-mode-seafoam);
+}
+
+#delete-submit {
+    background-color: var(--light-mode-red);
 }
