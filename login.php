@@ -8,21 +8,25 @@
     <title>login</title>
 </head>
     <body>
-        <section class="login--box">
-            <form action="backend.php?action=login" method="post" id="login-form">
-                <?php 
-                    if($fail)echo "<p id='log-in-fail-text'>Your password or username is wrong</p>";
-                ?>
-                <label>
-                    <p>Username</p>
-                    <input type="text" name="userNameLogin" id="login-username">
-                </label>
-                <label>
-                    <p>Password</p>    
-                    <input type="password" name="passwordLogin" id="login-password">
-                </label>
-                <input type="submit" value="Log In">
-            </form>
-        </section>
+        <wrapper id="flexbox">
+            <section class="login--box">
+                <form action="backend.php?action=login" method="post" id="login-form">
+                    <?php 
+                        //if ($fail) {
+                        //    echo "<p id='log-in-fail-text'>Your password or username is wrong</p>";
+                        //}
+                    ?>
+                    <label>
+                        <p>Username</p>
+                        <input type="text" name="userNameLogin" id="login-username">
+                    </label>
+                    <label>
+                        <p>Password</p>    
+                        <input type="password" name="passwordLogin" id="login-password">
+                    </label>
+                    <input type="submit" id="login-submit" value="Log In">
+                </form>
+            </section>
+        </wrapper>
     </body>
 </html>
