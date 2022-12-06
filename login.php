@@ -17,8 +17,8 @@
                         //}
                     ?>
                     <label>
-                        <p>Username</p>
-                        <input type="text" name="userNameLogin" id="login-username">
+                        <p>Email</p>
+                        <input type="text" name="emailLogin" id="login-email">
                     </label>
                     <label>
                         <p>Password</p>    

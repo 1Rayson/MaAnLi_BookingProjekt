@@ -14,8 +14,8 @@ if($action == 'login') {
 
     $loginQuery = "
         SELECT id, userPassword
-        FROM maanliUserLogin
-        WHERE username = '$userNameLoginVar'
+        FROM examProject_login
+        WHERE email = '$emailLoginVar'
     ";
 
     $result = $database->Query($loginQuery)->fetch_object();
