@@ -121,8 +121,7 @@ class Calendar {
         }
              
          
-        return '<li id="li-'.$this->currentDate.'" class="'.($cellNumber%7==1?' start ':($cellNumber%7==0?' end ':' ')).
-                ($cellContent==null?'mask':'').'">'.$cellContent.'</li>';
+        return "<a ".($cellContent==null?"":"href='backend-calendar.php?value=$cellContent$this->currentMonth$this->currentYear'")."><li id='".$this->currentDate."'>".$cellContent."</li>";
     }
      
     /**
