@@ -52,7 +52,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--light-mode-dark-grey);
+    background-color: var(--light-mode-grey);
     border-radius: 15px;
     font-weight: 200;
     height: 40%;
@@ -62,8 +62,9 @@
 
 .login--box input { 
     border-radius: 15px;
-    height: 3vh;
+    height: 2vh;
     border: none;
+    padding: 1vh;
 }
 
 #login-username { 
@@ -76,6 +77,8 @@
     height: 4vh;
     margin-left: auto;
     margin-right: auto;
+    background-color: var(--light-mode-seafoam);
+    cursor: pointer;
 }
 
 .login--box p {
