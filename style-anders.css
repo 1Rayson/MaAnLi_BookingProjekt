@@ -57,6 +57,7 @@ html {
     display: flex;
     flex-direction: column;
     padding: 1vh 2vw;
+    overflow-x: hidden;
 }
 
 #header {
@@ -93,6 +94,14 @@ h1 {
 .nav-item {
     display: flex;
     flex-direction: row;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: var(--light-mode-dark-seafoam);
+}
+
+.nav-item a:hover {
     color: var(--light-mode-seafoam);
 }
 
@@ -102,7 +111,7 @@ h1 {
 }
 
 .active div, .active a {
-    color: var(--light-mode-dark-seafoam);
+    color: var(--light-mode-seafoam);
 }
 
 /* Login Styling */
@@ -164,11 +173,11 @@ h1 {
     margin-bottom: 2vh;
 }
 
-#calendar div { /* STYLING FOR TEMPORARY BOX */
+/*#calendar {
     height: 75vh;
     width: 40vw;
     background-color: var(--light-mode-dark-grey);
-}
+} */
 
 #booking-headers {
     display: flex;

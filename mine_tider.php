@@ -1,3 +1,6 @@
+<?php
+    include 'calendar.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style-anders.css">
+    <link href="calendar-temp.css" type="text/css" rel="stylesheet" />
     <title>Mine Tider</title>
 </head>
 <body>
@@ -17,7 +21,7 @@
             <nav id="booking-nav-desktop">
                 <div class="nav-item">
                     <div><h3>|</h3></div>
-                    <a><h3>Book Lokale</h3></a>
+                    <a href=""><h3>Book Lokale</h3></a>
                 </div>
                 <div class="nav-item active">
                     <div><h3>|</h3></div>
@@ -27,9 +31,11 @@
             </nav>
 
             <article class="content row-reverse">
-                <section id="calendar">
-                    <div>TEMPORARY CALENDAR BOX</div> <!-- TEMPORARY BOX -->
-                </section>
+                <?php
+                $calendar = new Calendar();
+                
+                echo $calendar->show();
+                ?>
                 <section id="my-bookings">
                     <article id="booking-headers">
                         <h3>Dato</h3>
