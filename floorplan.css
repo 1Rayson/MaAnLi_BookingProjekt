@@ -49,19 +49,19 @@
     align-items: center;
     text-align: center;
 }
-#rS30{
+#rs30{
     grid-area: -15 / -7 / -8 / -1;
 }
-#rS31{
+#rs31{
     grid-area: -8 / -7 / -1 / -1;
 }
-#wcS1{
+#wcs1{
     grid-area: -7 / -11 / -1 / -7;
 }
-#wcS2{
+#wcs2{
     grid-area: -7 / 6 / -1 / 9;
 }
-#wcS4{
+#wcs4{
     grid-area: 1 / -11 / 7 / -7;
 }
 #printerS{
