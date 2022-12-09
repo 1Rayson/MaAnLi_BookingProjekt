@@ -5,14 +5,23 @@
 }
 .available{
     background-color: #5CD393;
+    cursor: pointer;
+}
+.available:hover{
+    opacity: 0.5;
 }
 .partly-available{
     background-color: #DCB851;
+    cursor: pointer;
+}
+.partly-available:hover{
+    opacity: 0.5;
 }
 .unavailable {
     background-color: #C7CDD1;
     z-index: -99;
 }
+
 #size-definer{
     max-width: 600px;
     max-height: 600px;
