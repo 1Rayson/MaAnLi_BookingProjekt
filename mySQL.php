@@ -1,4 +1,4 @@
-!-- Used for connecting to database -->
+<!-- Used for connecting to database -->
 <?php
 
 // Ignores the default warnings (from connecting to MySQL)
@@ -67,7 +67,7 @@ class MySQL {
         }
     }
 
-    // Do a qeury call and give the option to return the result as an Object or in JSON (default: Object)
+    // Do a query call and give the option to return the result as an Object or in JSON (default: Object)
     public function Query($query, $returnAsJSON = false) {
         if(!$this->isConnected) {
             $this->error = "There is no connection established. Try and call the Connect() method";
