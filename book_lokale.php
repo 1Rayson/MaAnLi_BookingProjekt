@@ -171,5 +171,6 @@
             </article>
         </section>
     </wrapper>
+    <script src="calendar.js"></script> 
 </body>
 </html>

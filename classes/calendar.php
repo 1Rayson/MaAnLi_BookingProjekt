@@ -117,9 +117,14 @@ class Calendar {
  
             $cellContent=null;
         }
-             
-         
-        return "<a ".($cellContent==null?"":"href='backend-calendar.php?value=$cellContent$this->currentMonth$this->currentYear'")."><li id='".$this->currentDate."'>".$cellContent."</li>";
+        
+        /*$dateValue = $cellContent$this->currentMonth$this->currentYear;*/
+        
+        
+        /*return "<li id='".$this->currentDate."' class='date'>".$cellContent."</li>";*/
+
+        return "<li id='".$this->currentDate."' ". ($cellContent==null?"":"class='date'") .">".$cellContent."</li>";
+        /*return".($cellContent==null?"<li id='".$this->currentDate."'>".$cellContent."</li>":"<li id='".$this->currentDate."' class='date'>".$cellContent."</li>";*/
     }
      
     /**

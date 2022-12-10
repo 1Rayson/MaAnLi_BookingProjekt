@@ -141,6 +141,14 @@ input {
   cursor: pointer;
 }
 
+.date {
+  cursor: pointer;
+}
+
+.activeDate {
+  background-color: var(--light-mode-seafoam) !important;
+}
+
 /* Login Styling */
 
 #login-form {
