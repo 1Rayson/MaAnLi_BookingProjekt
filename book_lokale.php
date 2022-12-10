@@ -110,7 +110,7 @@
                         <option value="30">30</option>
                         <option value="45">45</option>
                         </select>
-                        <input type="submit" value="Find lokaler">
+                        <input type="submit" value="Tjek ledighed >">
                     </form>
                 </section>
 

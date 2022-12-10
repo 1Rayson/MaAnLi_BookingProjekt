@@ -41,6 +41,19 @@ html {
   color: var(--light-mode-dark-seafoam);
 }
 
+table,
+th,
+td {
+  border: 0.5vh solid white;
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border-radius: 15px;
+}
+
 #flexbox {
   display: flex;
   align-items: center;
@@ -282,4 +295,79 @@ select {
 #time-container input {
   width: 15vh;
   background-color: var(--light-mode-green);
+}
+
+/* Room availability styling */
+
+#chosen-date-map {
+  width: 30vw;
+}
+
+#room-info {
+  width: 20vw;
+}
+
+#room-info p:first-of-type,
+#room-info p:last-of-type {
+  margin-bottom: 5vh;
+}
+
+#availability-calendar-section {
+  width: 30vw;
+  overflow-y: scroll;
+  height: 80vh;
+  overflow-x: hidden;
+}
+
+#availability-calendar-section table {
+  height: 80vh;
+  width: 30vw;
+  background-color: var(--light-mode-grey);
+}
+
+#availability-calendar-section tbody {
+  overflow: scroll;
+}
+
+#availability-calendar-head {
+  vertical-align: middle;
+  text-align: center;
+  height: 7vh;
+}
+
+#availability-head {
+  height: 8vh !important;
+}
+
+.availability-time {
+  background-color: var(--light-mode-grey);
+  width: 30%;
+  text-align: center;
+}
+
+#availability-calendar-section tr {
+  height: 5vh;
+  width: 100%;
+}
+
+#availability-calendar-section th {
+  position: absolute;
+  width: 28vw;
+  background-color: var(--light-mode-dark-grey);
+  height: 7vh;
+}
+
+#update-time-submit,
+#book-selected-room {
+  border-radius: 15px;
+  background-color: var(--light-mode-green);
+  width: 5vw;
+}
+
+#chosen-date-map article {
+  display: flex;
+}
+
+#chosen-date-map h2 {
+  margin-right: 2vw;
 }
