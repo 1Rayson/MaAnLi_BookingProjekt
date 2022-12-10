@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("mySQL.php");
+    include("classes/mySQL.php");
 // 
 // Variables
 // 
