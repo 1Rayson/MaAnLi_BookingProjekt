@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'calendar.php';
+    include 'classes/calendar.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,7 +110,7 @@
                         <option value="30">30</option>
                         <option value="45">45</option>
                         </select>
-                        <input type="submit" value="Find lokaler">
+                        <input type="submit" value="Tjek ledighed >">
                     </form>
                 </section>
 
@@ -171,5 +171,6 @@
             </article>
         </section>
     </wrapper>
+    <script src="calendar.js"></script> 
 </body>
 </html>
