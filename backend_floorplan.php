@@ -1,6 +1,6 @@
 <?php
 
-include_once("mySQL.php");
+include_once("classes/mySQL.php");
 
 $database = new MySQL(true);
 
