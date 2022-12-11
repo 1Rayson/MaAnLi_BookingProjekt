@@ -15,54 +15,45 @@ function switchFloor(floor){
     floorBtns[floor].className += " active-floor-btns";
 }
 
+/* Kun midlertidig objekt array til test */
 let unavailableRooms = [
     {
-        fullName: "Test subject1",
         roomNumber: "30",
         floorVariable: "s",
-        start_time: "2022-12-08",
-        end_time: ""
     },
     {
-        fullName: "Test subject3",
         roomNumber: "17",
         floorVariable: "1"
     },
     {
-        fullName: "Test subject15",
         roomNumber: "44",
         floorVariable: "1"
     },
     {
-        fullName: "Test subject7",
         roomNumber: "20",
         floorVariable: "2"
     },
     {
-        fullName: "Test subject9",
         roomNumber: "38",
         floorVariable: "2"
     },
 ];
 
+/* Kun midlertidig objekt array til test */
 let partlyAvailableRooms = [
     {
-        fullName: "Test subject2",
         roomNumber: "01",
         floorVariable: "1"
     },
     {
-        fullName: "Test subject4",
         roomNumber: "24",
         floorVariable: "1"
     },
     {
-        fullName: "Test subject6",
         roomNumber: "11",
         floorVariable: "2"
     },
     {
-        fullName: "Test subject8",
         roomNumber: "26",
         floorVariable: "2"
     }
