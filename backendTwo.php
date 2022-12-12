@@ -8,13 +8,13 @@ include("classes/mySQL.php");
 if($action == 'login') {
     if(!isset($_SESSION['userToken'])) $_SESSION['userToken'] = 0;
 
-    $userNameLoginVar = $_REQUEST['userNameLogin'];
+    $emailLoginVar = $_REQUEST['emailLogin'];
     $passwordLoginVar = $_REQUEST['passwordLogin'];
 
     $loginQuery = "
         SELECT id, userPassword
         FROM examProject_login
-        WHERE userEmail = '$emailLoginVar'
+        WHERE userEmail = '$emailLoginVar';
     ";
 
     $result = $database->Query($loginQuery)->fetch_object();
@@ -24,6 +24,7 @@ if($action == 'login') {
     if($passVerify){
         $_SESSION['userToken'] = $result->id;
         header("location: book_lokale.php");
+       echo "ERROR ID10T" ;
         exit;
     } else {
         header("location: login.php?login=fail");
@@ -82,17 +83,17 @@ if($action == 'create'){
 // Read room details Backend (+lokalets bookinger for dagen)
 // 
 if($action == 'selectRoom') {
-    $room_id = ;
-    $booking_date = ;
-    $start_time = ;
-    $end_time = ;
+    //$room_id = ;
+    //$booking_date = ;
+    //$start_time = ;
+    //$end_time = ;
 
     if($room_id !="" && $start_time !="" && $end_time !="") {
         $userSQL = "SELECT * FROM examProject_bookings
                     WHERE id = '$room_id'
                     AND WHERE booking_date = '$booking_date';";
 
-                    
+
 
 
 
