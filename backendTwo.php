@@ -1,6 +1,11 @@
 <?php
 session_start();
 include("classes/mySQL.php");
+// 
+// Variables
+// 
+$database = new MySQL(true);
+$action = $_GET['action'] ;
 
 // 
 // Login Backend
@@ -21,10 +26,11 @@ if($action == 'login') {
 
     $passVerify = password_verify($passwordLoginVar, $result->userPassword);
 
+    echo "ERROR ID10T 1";
     if($passVerify){
         $_SESSION['userToken'] = $result->id;
         header("location: book_lokale.php");
-       echo "ERROR ID10T" ;
+       echo "ERROR ID10T 2";
         exit;
     } else {
         header("location: login.php?login=fail");
