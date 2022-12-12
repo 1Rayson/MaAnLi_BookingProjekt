@@ -1,4 +1,7 @@
 /*******************************Calendar Top Navigation*********************************/
+*{
+    box-sizing: border-box;
+}
 div#calendar {
     margin: 0px auto;
     padding: 0px;
@@ -12,7 +15,7 @@ div#calendar div.box {
     left: 0px;
     width: 100%;
     height: 40px;
-    background-color: #787878;
+    background-color: #7bb5c1;
 }
 
 div#calendar div.header {
@@ -56,7 +59,7 @@ div#calendar div.header a.next {
 
 /*******************************Calendar Content Cells*********************************/
 div#calendar div.box-content {
-    border: 1px solid #787878;
+    border: 1px solid #7bb5c1;
     border-top: none;
 }
 
@@ -108,7 +111,9 @@ div#calendar ul.dates li {
     width: 80px;
     height: 80px;
     font-size: 25px;
-    background-color: #DDD;
+    border-style: solid;
+    background-color: #FFF;
+    border-color: #a9a9ae;
     color: #000;
     text-align: center;
 }
