@@ -11,7 +11,7 @@ $action = $_GET['action'] ;
 // Login Backend
 // 
 if($action == 'login') {
-    if(!isset($_SESSION['userToken'])) $_SESSION['userToken'] = 0;
+    if(!isset($_SESSION['userToken'])) $_SESSION['userToken'] = null;
 
     $emailLoginVar = $_REQUEST['emailLogin'];
     $passwordLoginVar = $_REQUEST['passwordLogin'];
@@ -26,11 +26,9 @@ if($action == 'login') {
 
     $passVerify = password_verify($passwordLoginVar, $result->userPassword);
 
-    echo "ERROR ID10T 1";
     if($passVerify){
         $_SESSION['userToken'] = $result->id;
         header("location: book_lokale.php");
-       echo "ERROR ID10T 2";
         exit;
     } else {
         header("location: login.php?login=fail");
@@ -80,10 +78,40 @@ if($action == 'create'){
 // 
 // Read booking Backend
 // 
+if($action == 'showOwnBookings') {
+    $user_id = $_SESSION['userToken'];
 
+    $userSQL = "SELECT * FROM examProject_bookings
+                WHERE organizer_login_id = '$user_id';";
+                
+    $database->Query($userSQL);
 
-
-
+    $result = $database->Query($userSQL)->fetch_object();
+    while($row = mysql_fetch_array($result)) {
+        ?>
+            <section class="booking">
+                <article class="booking-details">
+                    <section class="date-time-location">
+                        <p><?php echo $row['booking_day'] ?></p>
+                        <p>Kl. <?php echo $row['start_time']?>-<?php echo $row['end_time']?></p>
+                        <p>Lokale <?php echo $row['room_id']?></p>
+                    </section>
+                    <section class="organizer">
+                        <p><?php echo $row['booking_description']?></p>
+                    </section>
+                </article>
+                <article class="update-delete-booking">
+                    <a href="backend-testing.php?action=update" id="update-submit">Opdatér</a>
+                    <a href="backend-testing.php?action=delete" id="delete-submit">Slet</a>
+                    
+                </article>
+            </section>
+            <section class="divider">
+                <hr>
+            </section>
+        <?php
+    }
+}
 
 // 
 // Read room details Backend (+lokalets bookinger for dagen)
@@ -96,21 +124,37 @@ if($action == 'selectRoom') {
 
     if($room_id !="" && $start_time !="" && $end_time !="") {
         $userSQL = "SELECT * FROM examProject_bookings
-                    WHERE id = '$room_id'
+                    WHERE room_id = '$room_id'
                     AND WHERE booking_date = '$booking_date';";
-
-
-
-
-
-                    //SET room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$name_of_booking'
-                    //WHERE id = '$booking_id';"
         $database->Query($userSQL);
+
+        $result = $database->Query($userSQL);
+    }
+    while($row = mysql_fetch_array($result)) {
+        ?>
+            <section class="booking">
+                <article class="booking-details">
+                    <section class="date-time-location">
+                        <p><?php echo $row['booking_day'] ?></p>
+                        <p>Kl. <?php echo $row['start_time']?>-<?php echo $row['end_time']?></p>
+                        <p>Lokale <?php echo $row['room_id']?></p>
+                    </section>
+                    <section class="organizer">
+                        <p><?php echo $row['booking_description']?></p>
+                    </section>
+                </article>
+                <article class="update-delete-booking">
+                    <a href="backend-testing.php?action=update" id="update-submit">Opdatér</a>
+                    <a href="backend-testing.php?action=delete" id="delete-submit">Slet</a>
+                    
+                </article>
+            </section>
+            <section class="divider">
+                <hr>
+            </section>
+        <?php
     }
 }
-
-
-
 
 // 
 // Update booking Backend (Ikke færdig - ikke sikker på HVORDAN vi skal opdatere tiden ud fra designet)
