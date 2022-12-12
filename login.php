@@ -1,7 +1,7 @@
 <?php
     session_start();
     
-    if(isset($_SESSION['userToken'])) header("location: index.php");
+    if(isset($_SESSION['userToken'])) header("location: book_lokale.php");
 
     $fail = false;
     $response = isset($_GET['login']) ? $_GET['login'] : "";
@@ -21,7 +21,7 @@
     <body>
         <wrapper id="flexbox">
             <section class="login--box">
-                <form action="backend.php?action=login" method="post" id="login-form">
+                <form action="backendTwo.php?action=login" method="post" id="login-form">
                     <?php 
                         if ($fail) echo "<p id='log-in-fail-text'>Your password or username is wrong</p>";
                     ?>

@@ -135,7 +135,7 @@ h2 {
 
 input {
   height: 7vh;
-  width: 7vh;
+  width: 9vh;
   border-radius: 15px;
   border: none;
   cursor: pointer;
@@ -163,8 +163,8 @@ input {
   background-color: var(--light-mode-grey);
   border-radius: 15px;
   font-weight: 200;
-  height: 40%;
-  width: 25%;
+  height: 50%;
+  width: 40%;
   box-shadow: var(--boxshadow);
 }
 
@@ -177,11 +177,16 @@ input {
 
 #login-email {
   margin-bottom: 3vh;
+  width: 10vw;
+}
+
+#login-password{
+  width: 10vw;
 }
 
 #login-submit {
   margin-top: 2vh;
-  width: 5vw;
+  width: 10vw;
   height: 4vh;
   margin-left: auto;
   margin-right: auto;
