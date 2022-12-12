@@ -1,12 +1,12 @@
 <?php
-//    session_start();
+    session_start();
     
-//    if(isset($_SESSION['userToken'])) header("location: index.php");
+    if(isset($_SESSION['userToken'])) header("location: index.php");
 
-//    $fail = false;
-//    $response = isset($_GET['login']) ? $_GET['login'] : "";
+    $fail = false;
+    $response = isset($_GET['login']) ? $_GET['login'] : "";
 
-//    if($response == "fail") $fail = true;
+    if($response == "fail") $fail = true;
 
 ?>
 <!DOCTYPE html>
@@ -23,9 +23,7 @@
             <section class="login--box">
                 <form action="backend.php?action=login" method="post" id="login-form">
                     <?php 
-                        //if ($fail) {
-                        //    echo "<p id='log-in-fail-text'>Your password or username is wrong</p>";
-                        //}
+                        if ($fail) echo "<p id='log-in-fail-text'>Your password or username is wrong</p>";
                     ?>
                     <label>
                         <p>Email</p>

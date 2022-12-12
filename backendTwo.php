@@ -57,7 +57,7 @@ if($action == 'create'){
             $room_number = '0' . $room_number;
         }
 
-        $room_id = "$room_var" . "$room_number";
+        $room_id = $room_var . $room_number;
 
         $userSQL = "INSERT INTO examProject_bookings
                     SET organizer_login_id = '$user_id', room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$name_of_booking';";    
@@ -74,10 +74,33 @@ if($action == 'create'){
 // Read booking Backend
 // 
 
+
+
+
+
 // 
 // Read room details Backend (+lokalets bookinger for dagen)
 // 
+if($action == 'selectRoom') {
+    $room_id = ;
+    $booking_date = ;
+    $start_time = ;
+    $end_time = ;
 
+    if($room_id !="" && $start_time !="" && $end_time !="") {
+        $userSQL = "SELECT * FROM examProject_bookings
+                    WHERE id = '$room_id'
+                    AND WHERE booking_date = '$booking_date';";
+
+                    
+
+
+
+                    //SET room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$name_of_booking'
+                    //WHERE id = '$booking_id';"
+        $database->Query($userSQL);
+    }
+}
 
 
 
