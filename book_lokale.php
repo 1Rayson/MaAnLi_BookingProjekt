@@ -110,7 +110,7 @@
                         <option value="30">30</option>
                         <option value="45">45</option>
                         </select>
-                        <input type="submit" value="Tjek ledighed >">
+                        <input type="submit" value="Tjek ledighed">
                     </form>
                 </section>
 
@@ -171,6 +171,13 @@
             </article>
         </section>
     </wrapper>
-    <script src="calendar.js"></script> 
+    <script src="calendar.js"></script>
+    <script>
+
+    function showDate(){
+        let container = document.getElementsByClassName('activeDate');
+        console.log(container[0].id);
+    }
+    </script>
 </body>
 </html>

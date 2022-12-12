@@ -27,7 +27,7 @@ if($action == 'login') {
         header("location: index.php");
         exit;
     } else {
-        header("location: Login.php?login=fail");
+        header("location: login.php?login=fail");
         exit;
     }
 }
