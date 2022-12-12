@@ -11,21 +11,22 @@ $action = $_GET['action'] ;
 // Login Backend
 // 
 if($action == 'login') {
-    if(!isset($_SESSION['userToken'])) $_SESSION['userToken'] = null;
+    if(!isset($_SESSION['userToken'])) $_SESSION['userToken'] = NULL;
 
     $emailLoginVar = $_REQUEST['emailLogin'];
     $passwordLoginVar = $_REQUEST['passwordLogin'];
 
+
     $loginQuery = "
         SELECT id, userPassword
         FROM examProject_login
-        WHERE userEmail = '$emailLoginVar';
+        WHERE userEmail = '$emailLoginVar'
     ";
 
     $result = $database->Query($loginQuery)->fetch_object();
 
     $passVerify = password_verify($passwordLoginVar, $result->userPassword);
-
+    
     if($passVerify){
         $_SESSION['userToken'] = $result->id;
         header("location: book_lokale.php");
@@ -87,6 +88,8 @@ if($action == 'showOwnBookings') {
     $database->Query($userSQL);
 
     $result = $database->Query($userSQL)->fetch_object();
+    var_dump($result);
+    exit;
     while($row = mysql_fetch_array($result)) {
         ?>
             <section class="booking">

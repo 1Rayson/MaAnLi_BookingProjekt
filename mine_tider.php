@@ -1,6 +1,18 @@
 <?php
     session_start();
     include 'classes/calendar.php';
+    include_once('classes/MySQL.php');
+    // if(!isset($_SESSION['userToken'])) header("location: login.php");
+    if($_SESSION['userToken'] === 0 || NULL) header("location: login.php");
+
+    $mySQL = new MySQL(true);
+    $user_id = $_SESSION['userToken'];
+
+    $bookings = "SELECT * FROM examProject_bookings
+                WHERE organizer_login_id = '$user_id';";
+
+    $bookings_result = $mySQL->Query($bookings, $returnAsJSON=true);
+    echo $user_id;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,6 +116,33 @@
                                 <input type="submit" id="delete-submit" value="Slet">
                             </article>
                         </section>
+                        <?php
+
+                         while($row = json_decode($bookings_result)) {
+                            
+                            echo '<section class="booking">
+                                <article class="booking-details">
+                                    <section class="date-time-location">
+                                        <p>' . $row['booking_day'] . '</p>
+                                        <p>Kl. ' . $row['start_time'] . '-' . $row['end_time'] . '</p>
+                                        <p>Lokale ' . $row['room_id'] . '</p>
+                                    </section>
+                                    <section class="organizer">
+                                        <p>' . $row['booking_description'] . '</p>
+                                    </section>
+                                </article>
+                                <article class="update-delete-booking">
+                                    <a href="backend-testing.php?action=update" id="update-submit">Opdatér</a>
+                                    <a href="backend-testing.php?action=delete" id="delete-submit">Slet</a>
+                                    
+                                </article>
+                            </section>
+                            <section class="divider">
+                                <hr>
+                            </section>';
+                        }
+                        ?>
+
                     </article>
                     <hr>
                 </section>
