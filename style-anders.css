@@ -70,6 +70,15 @@ td {
   overflow-x: hidden;
 }
 
+#pop-up-confirmation {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 100;
+}
+
 #header {
   margin-bottom: 5vh;
 }
@@ -318,7 +327,6 @@ select {
 #room-info-availability{
   background-color: var(--light-mode-light-grey);
   border-radius: 30px;
-  display: flex;
 }
 
 #room-info {
@@ -384,6 +392,7 @@ select {
   border-radius: 15px;
   background-color: var(--light-mode-green);
   width: 5vw;
+  padding: 10px;
 }
 
 #chosen-date-map {

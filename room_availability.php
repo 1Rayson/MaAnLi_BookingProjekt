@@ -22,6 +22,13 @@
 </head> 
 <body>
     <wrapper class="site-wrapper">
+        <section id="pop-up-confirmation">
+            <div id="pop-up-header">
+                <img id="back-button" src="img/arrow-left-circle.svg" alt="Tilbage" onclick="popDown()">
+                <h1 id="pop-up-titel">Bekræft booking</h1>
+            </div>
+            <div id="pop-up-main-content"></div>
+        </section>
         <section id="header">
             <h1>Studierum booking</h1>
             <hr>
@@ -199,11 +206,12 @@
                         <p>(Vælg lokale)</p>
                         <h2>Faciliteter</h2>
                         <p>(Vælg lokale)</p>
-                        <article id="book-btn">
-                            <input type="submit" id="book-selected-room" value="Book"></input>
-                        </article>
                     </section>
-                    <section id="availability-calendar-section">
+                    <section id="bookingsOnTheDay">
+                        
+                    </section>
+                    <button id="book-selected-room" onclick="popUp()">Book</button>
+                    <!-- <section id="availability-calendar-section">
                         <table>
                             <thead class="availability-calendar-head">
                                 <tr id="availability-head">
@@ -310,12 +318,11 @@
                             </tbody>
 
                         </table>
-                    </section>
+                    </section> -->
                 </div>
             </article>
         </section>
     </wrapper>
-
     <script src="floorplan.js"></script>
 </body>
 </html>
