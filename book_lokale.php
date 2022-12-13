@@ -43,7 +43,7 @@
                 </section>
                 <section id="time-container">
                     <h2>Vælg tidsrum</h2>
-                    <form action="backend-testing.php?action=checkAvailability" method="post">
+                    <form action="backend.php?action=checkAvailability" method="post">
                         <label for="start_hour">Fra:</label>
                         <select id="start_hour" name="start_hour">
                         <option value="01">1</option>
