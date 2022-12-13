@@ -1,3 +1,5 @@
+
+/* ----- Changing floor ----- */
 let floorIndex = 0
 switchFloor(floorIndex);
 
@@ -15,38 +17,52 @@ function switchFloor(floor){
     floorBtns[floor].className += " active-floor-btns";
 }
 
+
+/* ----- Creating unavailable and partly unavailable lists ----- */
 const rooms = document.querySelectorAll('.room');
 
+let url = new URL(window.location)
+ 
+document.getElementById("date").value = url.searchParams.get("date");
+document.getElementById("start_hour").value = url.searchParams.get("start-hour");
+document.getElementById("start_minute").value = url.searchParams.get("start-minute");
+document.getElementById("end_hour").value = url.searchParams.get("end-hour");
+document.getElementById("end_minute").value = url.searchParams.get("end-minute");
+
 async function checkAvailability (){
+    let date = document.getElementById("date").value;
+    let startHour = document.getElementById("start_hour").value;
+    let startMinute = document.getElementById("start_minute").value;
+    let endHour = document.getElementById("end_hour").value;
+    let endMinute = document.getElementById("end_minute").value;
 
-    let url = new URL(window.location)
-    let date = url.searchParams.get("date");
-    let startTime = url.searchParams.get("start-time-input");
-    let endTime = url.searchParams.get("end-time-input");
+    console.log("/backend_floorplan.php?date=" + date + "&start-time-input="+startHour+":"+startMinute+"&end-time-input="+endHour+":"+endMinute);
 
-    fetch("/backend_floorplan.php?date=" + date + "&start-time-input="+startTime+"&end-time-input="+endTime)
+    fetch("/backend_floorplan.php?date=" + date + "&start-time-input="+startHour+":"+startMinute+"&end-time-input="+endHour+":"+endMinute)
         .then(res => res.json())
         .then(data => colorFloorplan(data.unavailableList, data.partlyAvailableList))
 }
 
+
+/* ----- Coloring rooms based on the two lists ----- */
 function colorFloorplan(unavailableRooms, partlyAvailableRooms){
 
     rooms.forEach(room => {
-        room.className.replace(" unavailable", "");
-        room.className.replace(" partly-available", "");
-        room.className.replace(" available", "");
+        room.classList.remove("unavailable");
+        room.classList.remove("partly-available");
+        room.classList.remove("available");
     });
     
     rooms.forEach(room => {
         for(i=0; i<unavailableRooms.length; i++){
-            if(room.id == "r" + unavailableRooms[i].floorVariable + unavailableRooms[i].roomNumber){
+            if(room.id == unavailableRooms[i].id){
                 room.className += " unavailable";
                 return
             }
         }
     
         for(i=0; i<partlyAvailableRooms.length; i++){
-            if (room.id == "r" + partlyAvailableRooms[i].floorVariable + partlyAvailableRooms[i].roomNumber){
+            if (room.id == partlyAvailableRooms[i].id){
                 room.className += " partly-available";
                 room.addEventListener("click", function() {selectRoom(room.id)});
                 return
@@ -58,8 +74,12 @@ function colorFloorplan(unavailableRooms, partlyAvailableRooms){
     });
 }
 
+
+/* nothing yet */
 function selectRoom(roomID){
-    console.log(roomID);
+    fetch("/backend_floorplan.php?roomid="+roomID)
+        .then(res => res.json())
+        .then(data => colorFloorplan())
 }
 
 checkAvailability();

@@ -41,18 +41,15 @@ html {
   color: var(--light-mode-dark-seafoam);
 }
 
-table,
-th,
-td {
-  border: 0.5vh solid white;
+table {
   border-collapse: collapse;
 }
 
-table,
-th,
 td {
-  border-radius: 15px;
+  border-top: 2px solid var(--light-mode-dark-grey);
+  border-bottom: 2px solid var(--light-mode-dark-grey);
 }
+
 
 #flexbox {
   display: flex;
@@ -134,8 +131,6 @@ h2 {
 }
 
 input {
-  height: 7vh;
-  width: 9vh;
   border-radius: 15px;
   border: none;
   cursor: pointer;
@@ -320,8 +315,15 @@ select {
   width: 30vw;
 }
 
+#room-info-availability{
+  background-color: var(--light-mode-light-grey);
+  border-radius: 30px;
+  display: flex;
+}
+
 #room-info {
   width: 20vw;
+  padding: 10px;
 }
 
 #room-info p:first-of-type,
@@ -334,12 +336,13 @@ select {
   overflow-y: scroll;
   height: 80vh;
   overflow-x: hidden;
+  border-radius: 20px;
+  border: 2px solid var(--light-mode-dark-grey);
 }
 
 #availability-calendar-section table {
   height: 80vh;
   width: 30vw;
-  background-color: var(--light-mode-grey);
 }
 
 #availability-calendar-section tbody {
@@ -370,8 +373,10 @@ select {
 #availability-calendar-section th {
   position: absolute;
   width: 28vw;
-  background-color: var(--light-mode-dark-grey);
-  height: 7vh;
+  background-color: var(--light-mode-light-grey);
+  height: 8vh;
+  border-radius: 20px 0 0 0;
+  border-bottom: 2px solid var(--light-mode-dark-grey);
 }
 
 #update-time-submit,
@@ -381,10 +386,17 @@ select {
   width: 5vw;
 }
 
-#chosen-date-map article {
-  display: flex;
+#chosen-date-map {
+  margin-left: 2vw;
 }
 
-#chosen-date-map h2 {
-  margin-right: 2vw;
+#chosen-date-map article {
+  display: flex;
+  margin-bottom: 2em;
+  justify-content: space-between;
+}
+
+#chosen-date-map h2 input {
+  font-size: 1.5em;
+  color: var(--light-mode-seafoam);
 }

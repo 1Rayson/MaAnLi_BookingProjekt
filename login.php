@@ -21,7 +21,7 @@
     <body>
         <wrapper id="flexbox">
             <section class="login--box">
-                <form action="backendTwo.php?action=login" method="post" id="login-form">
+                <form action="backend.php?action=login" method="post" id="login-form">
                     <?php 
                         if ($fail) echo "<p id='log-in-fail-text'>Your password or username is wrong</p>";
                     ?>

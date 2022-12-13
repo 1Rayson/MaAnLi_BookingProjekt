@@ -176,8 +176,18 @@
     <script>
 
         function collectInfo(){
-            let date = document.getElementsByClassName('activeDate').id;
-            console.log()
+            let date = document.getElementsByClassName('activeDate');
+            let startHour = document.getElementById('start_hour').value;
+            let startMinute = document.getElementById('start_minute').value;
+            let endHour = document.getElementById('end_hour').value;
+            let endMinute = document.getElementById('end_minute').value;
+            
+            window.location.href='room_availability.php?date='+ date[0].id
+                +'&start-hour='+ startHour
+                +'&start-minute='+ startMinute
+                +'&end-hour='+ endHour
+                +'&end-minute='+ endMinute
+            ;
         }
 
     </script>

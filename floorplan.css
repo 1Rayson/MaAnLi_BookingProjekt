@@ -59,10 +59,10 @@
     align-items: center;
     text-align: center;
 }
-#rs30{
+.rs30{
     grid-area: -15 / -7 / -8 / -1;
 }
-#rs31{
+.rs31{
     grid-area: -8 / -7 / -1 / -1;
 }
 #wcs1{
@@ -118,7 +118,7 @@
     align-items: center;
     text-align: center;
 }
-#r101{
+.r101{
     grid-area: -8 / -7 / -1 / -1;
 }
 #r108{
