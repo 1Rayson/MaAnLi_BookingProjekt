@@ -43,7 +43,7 @@
                 </section>
                 <section id="time-container">
                     <h2>Vælg tidsrum</h2>
-                    <form action="backend.php?action=checkAvailability" method="post">
+                    <form method="post">
                         <label for="start_hour">Fra:</label>
                         <select id="start_hour" name="start_hour">
                         <option value="01">1</option>
@@ -111,8 +111,8 @@
                         <option value="30">30</option>
                         <option value="45">45</option>
                         </select>
-                        <input type="submit" value="Tjek ledighed">
                     </form>
+                    <button id="submit-button" onclick="collectInfo()">Tjek ledighed</button>
                 </section>
 
 
@@ -175,10 +175,11 @@
     <script src="calendar.js"></script>
     <script>
 
-    function showDate(){
-        let container = document.getElementsByClassName('activeDate');
-        console.log(container[0].id);
-    }
+        function collectInfo(){
+            let date = document.getElementsByClassName('activeDate').id;
+            console.log()
+        }
+
     </script>
 </body>
 </html>

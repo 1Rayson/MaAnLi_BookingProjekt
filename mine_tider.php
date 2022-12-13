@@ -9,10 +9,9 @@
     $user_id = $_SESSION['userToken'];
 
     $bookings = "SELECT * FROM examProject_bookings
-                WHERE organizer_login_id = '$user_id';";
+                WHERE organizer_login_id = $user_id;";
 
-    $bookings_result = $mySQL->Query($bookings, $returnAsJSON=true);
-    echo $user_id;
+    $bookings_result = $mySQL->Query($bookings);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,17 +117,16 @@
                         </section>
                         <?php
 
-                         while($row = json_decode($bookings_result)) {
-                            
+                         while($row = $bookings_result->fetch_object()) {
                             echo '<section class="booking">
                                 <article class="booking-details">
                                     <section class="date-time-location">
-                                        <p>' . $row['booking_day'] . '</p>
-                                        <p>Kl. ' . $row['start_time'] . '-' . $row['end_time'] . '</p>
-                                        <p>Lokale ' . $row['room_id'] . '</p>
+                                        <p>' . $row->booking_day . '</p>
+                                        <p>Kl. ' . $row->start_time . '-' . $row->end_time . '</p>
+                                        <p>Lokale ' . $row->room_id . '</p>
                                     </section>
                                     <section class="organizer">
-                                        <p>' . $row['booking_description'] . '</p>
+                                        <p>' . $row->booking_description . '</p>
                                     </section>
                                 </article>
                                 <article class="update-delete-booking">

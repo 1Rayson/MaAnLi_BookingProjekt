@@ -31,4 +31,8 @@ if($action == 'login') {
         exit;
     }
 }
+
+if ($action == 'checkAvailability') {
+    
+}
 ?>

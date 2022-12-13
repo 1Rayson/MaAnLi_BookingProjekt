@@ -7,7 +7,7 @@
     <title>temporary time select</title>
 </head>
 <body>
-    <form action="/backend_floorplan.php" method="post">
+    <form action="/floorplan.php" method="get">
         <h2>Vælg tidsrum</h2>
         <label id="date">
             <p>Dato</p>

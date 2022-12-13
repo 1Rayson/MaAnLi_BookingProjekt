@@ -1,5 +1,5 @@
-<!-- Used for connecting to database -->
 <?php
+/*--- Used for connecting to database ---*/
 
 // Ignores the default warnings (from connecting to MySQL)
 set_error_handler(function() {  });

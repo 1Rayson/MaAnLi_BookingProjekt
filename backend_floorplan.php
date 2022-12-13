@@ -30,17 +30,11 @@ $partlyAvailableQuery = "
     ;
 ";
 
-/* Skal have spurgt Dan eller Kasper, hvordan man læser disse variablers JSON i JS */
-$unavailableListJson = $database->Query($unavailableQuery, true);
-$partlyAvailableListJson = $database->Query($partlyAvailableQuery, true);
-
-/* Med den mySQL.php fil vi har, bliver denne del klaret, hvis "returnAsJSON" er sat til true. */
-/*
 $unavailableList = [];
 $partlyAvailableList = [];
 
-$unavailableResult = $mySQL->query($unavailableQuery);
-$partlyAvailableResult = $mySQL->query($partlyAvailableQuery);
+$unavailableResult = $database->Query($unavailableQuery);
+$partlyAvailableResult = $database->Query($partlyAvailableQuery);
 
 while ($row = $unavailableResult->fetch_object()){
     $booking = [];
@@ -59,8 +53,12 @@ while ($row = $partlyAvailableResult->fetch_object()){
 
     $partlyAvailableList[] = $booking;
 }
-$unavailableListJson = json_encode($unavailableList);
-$partlyAvailableListJson = json_encode($partlyAvailableList);
-*/
+
+$json = [];
+$json["unavailableList"] = $unavailableList;
+$json["partlyAvailableList"] = $partlyAvailableList;
+
+header("content-type: application/json");
+echo json_encode($json);
 
 ?>

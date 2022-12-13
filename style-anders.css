@@ -305,9 +305,13 @@ select {
   cursor: pointer;
   background-color: var(--light-grey);
 }
-#time-container input {
-  width: 15vh;
+#submit-button {
+  width: 40%;
+  padding: 10px;
   background-color: var(--light-mode-green);
+  border: none;
+  border-radius: 15px;
+
 }
 
 /* Room availability styling */

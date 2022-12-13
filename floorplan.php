@@ -83,6 +83,6 @@
         <p id="second-floor-btn" class="floor-btns" onclick="switchFloor(2)">Second Floor</p>
     </div>
 
-    <script src="floorplan.js"></script> 
+    <script src="floorplan.js"></script>
 </body>
 </html>
