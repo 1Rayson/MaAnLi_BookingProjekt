@@ -182,6 +182,10 @@
     <script src="calendar.js"></script>
     <script>
 
+        /**
+         * Set the date-variable to be the element with the class activeDate,
+         * and set the starting time and ending time based on the elements with the corresponding id's
+         * */
         let seeAvailButton = document.getElementById('submit-button');
         let date = document.getElementsByClassName('activeDate');
         let startHour = document.getElementById('start_hour').value;
@@ -190,10 +194,8 @@
         let endMinute = document.getElementById('end_minute').value;
 
         seeAvailButton.classList.add("button-deactivated");
-
+        
         /**
-         * Set the date-variable to be the element with the class activeDate,
-         * and set the starting time and ending time based on the elements with the corresponding id's
          * Then set location to be the date's id(the date), the start hour, start minute,
          * end hour and end minute to pass it along in the url for later use
          */
