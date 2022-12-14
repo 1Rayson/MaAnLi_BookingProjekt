@@ -49,13 +49,17 @@
 </head>
 <body>
     <wrapper class="site-wrapper">
+
         <section id="pop-up-confirmation">
-            <div id="pop-up-header">
-                <img id="back-button" src="img/arrow-left-circle.svg" alt="Tilbage" onclick="popDown()">
-                <h1 id="pop-up-titel">Bekræft booking</h1>
+            <div id="centerPopUp">
+                <div id="pop-up-header">
+                    <img id="back-button" src="img/arrow-left-circle.svg" alt="Tilbage" onclick="popDown()">
+                    <h1 id="pop-up-titel">Bekræft booking</h1>
+                </div>
+                <div id="pop-up-main-content"></div>
             </div>
-            <div id="pop-up-main-content"></div>
         </section>
+
         <section id="header">
             <h1>Studierum booking</h1>
             <hr>
@@ -70,10 +74,10 @@
                     <article>
                         <div onchange="updatePopUp()">
                             <h2><input id="date" type="date" value="<?php echo $bookingData->booking_day;?>"></h2> <!-- Dato -->
-                            <h3>
-                                <form method="post">
-                                    <label for="start_hour">Fra:</label>
-                                    <select id="start_hour" name="start_hour">
+                            <form method="post">
+                            <div class="time-picker-flex">
+                                <label for="start_hour">Fra:</label>
+                                <select id="start_hour" name="start_hour">
                                     <option value="01">1</option>
                                     <option value="02">2</option>
                                     <option value="03">3</option>
@@ -81,7 +85,7 @@
                                     <option value="05">5</option>
                                     <option value="06">6</option>
                                     <option value="07">7</option>
-                                    <option value="08">8</option>
+                                    <option selected="selected" value="08">8</option>
                                     <option value="09">9</option>
                                     <option value="10">10</option>
                                     <option value="11">11</option>
@@ -98,16 +102,18 @@
                                     <option value="22">22</option>
                                     <option value="23">23</option>
                                     <option value="24">24</option>
-                                    </select>
-                                    <p>:</p>
-                                    <select id="start_minute" name="start_minute">
+                                </select>
+                                <p>:</p>
+                                <select id="start_minute" name="start_minute">
                                     <option value="00">00</option>
                                     <option value="15">15</option>
                                     <option value="30">30</option>
                                     <option value="45">45</option>
-                                    </select>
-                                    <label for="end_time">Til:</label>
-                                    <select id="end_hour" name="end_hour">
+                                </select>
+                            </div>
+                            <div class="time-picker-flex">
+                                <label for="end_time">Til:</label>
+                                <select id="end_hour" name="end_hour">
                                     <option value="01">1</option>
                                     <option value="02">2</option>
                                     <option value="03">3</option>
@@ -120,7 +126,7 @@
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                     <option value="13">13</option>
-                                    <option value="14">14</option>
+                                    <option selected="selected" value="14">14</option>
                                     <option value="15">15</option>
                                     <option value="16">16</option>
                                     <option value="17">17</option>
@@ -131,18 +137,18 @@
                                     <option value="22">22</option>
                                     <option value="23">23</option>
                                     <option value="24">24</option>
-                                    </select>
-                                    <p>:</p>
-                                    <select id="end_minute" name="end_minute">
+                                </select>
+                                <p>:</p>
+                                <select id="end_minute" name="end_minute">
                                     <option value="00">00</option>
                                     <option value="15">15</option>
                                     <option value="30">30</option>
                                     <option value="45">45</option>
-                                    </select>
-                                </form>
-                            </h3>
+                                </select>
+                            </div>
+                            </form>
                         </div>
-                        <button id="update-time-submit" onclick="popUp()">Opdatér tid</button>
+                        <button id="update-time-submit" class="button-deactivated">Opdatér tid</button>
                     </article>
                     
                 </section>
@@ -187,7 +193,7 @@
     
         function updatePopUp (){
 
-        
+            let updateTimeButton = document.getElementById('update-time-submit');
             let date = document.getElementById('date').value;
             let startHour = document.getElementById('start_hour').value;
             let startMinute = document.getElementById('start_minute').value;
@@ -198,30 +204,36 @@
                 <form action="backend.php?action=update&booking_id=<?php echo $booking_id?>" method="post">
                     <h2>Lokale</h2>
                     <div>
-                        <input type="text" name="room_var" value="<?php echo $bookingData->floorVariable?>" readonly>
+                        <input type="text" name="room_var" id="pop-up-room-var" value="<?php echo $bookingData->floorVariable?>" readonly>
                         .
-                        <input type="number" name="room_number" value="<?php echo $bookingData->roomNumber?>" readonly>
+                        <input type="number" name="room_number" id="pop-up-room-number" value="<?php echo $bookingData->roomNumber?>" readonly>
                     </div>
                     <h2>Dato</h2>
                     <input type="date" name="booking_date" value="${date}" readonly>
                     <h2>Tidsrum</h2>
-                    <div>
+                    <div id="timeIntervalFlex">
                         <input type="time" name="start_time" value="${startHour}:${startMinute}" readonly>
                         <p> - </p>
                         <input type="time" name="end_time" value="${endHour}:${endMinute}" readonly>
                     </div>
                     <h2>Booking beskrivelse</h2>
                     <input type="text" name="booking-description" id="booking-description-input" minlength="1" maxlength="50" value="<?php echo $bookingData->booking_description?>">
-                    <input type="submit" value="Bekræft">
+                    <br>
+                    <input type="submit" id="pop-up-submit" value="Bekræft">
                 </form>
             `;
                
             document.getElementById("pop-up-main-content").innerHTML = popUpHtml;
+
+            updateTimeButton.classList.remove("button-deactivated");
+            updateTimeButton.classList.add("button-activated");
+
+            updateTimeButton.addEventListener("click", function(){popUp()});
         }
            
         // Gives display:block to pop-up-confirmation, making it visible and interactable
         function popUp(){
-            document.getElementById("pop-up-confirmation").style.display = "block";
+            document.getElementById("pop-up-confirmation").style.display = "flex";
         }
 
         // Gives display:none to pop-up-confirmation, making it invisible and uninteractable
