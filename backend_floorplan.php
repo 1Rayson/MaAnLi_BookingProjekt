@@ -10,7 +10,7 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
     $endTime = $_REQUEST["end-time-input"];
 
     $unavailableQuery = "
-        SELECT room_id, id
+        SELECT room_id
         FROM examProject_bookings
         WHERE (
             ('".$date."' = booking_day AND start_time <= '".$startTime."') 
@@ -42,7 +42,7 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
     while ($row = $unavailableResult->fetch_object()){
         $booking = [];
 
-        $booking['id'] = $row->id;
+        $booking['id'] = $row->room_id;
 
         $unavailableList[] = $booking;
     }
@@ -50,7 +50,7 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
     while ($row = $partlyAvailableResult->fetch_object()){
         $booking = [];
 
-        $booking['id'] = $row->id;
+        $booking['id'] = $row->room_id;
 
         $partlyAvailableList[] = $booking;
     }
