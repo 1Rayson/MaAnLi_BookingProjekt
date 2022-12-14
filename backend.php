@@ -49,13 +49,14 @@ if($action == 'create'){
     $end_time = (isset($_REQUEST['end_time'])) ? $_REQUEST['end_time']: "";
     $booking_date = (isset($_REQUEST['booking_date'])) ? $_REQUEST['booking_date']: "";
     $booking_description = (isset($_REQUEST['booking-description'])) ? $_REQUEST['booking-description']: "";
-    echo $user_id ."<br>".$room_var."<br>".$room_number."<br>". $start_time."<br>". $end_time, $booking_date, $booking_description;
-    exit;
+    
     $conflicting_bookings = "SELECT * FROM examProject_bookings
                             WHERE start_time OR end_time
                             BETWEEN startTimeVar AND endTimeVar
                             AND WHERE booking_date = '$booking_date';";
-
+    $occupied = $database->Query($conflicting_bookings);
+    var_dump($occupied);
+    exit;
     if(empty($conflicting_bookings) && $room_var !="" && $room_number !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $booking_description !="" ){
         if ($room_var == 's') {
             $room_var = '';
@@ -66,8 +67,24 @@ if($action == 'create'){
 
         $room_id = $room_var . $room_number;
 
-        $userSQL = "INSERT INTO examProject_bookings
-                    SET organizer_login_id = '$user_id', room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$booking_description';";    
+        $userSQL = "
+            INSERT INTO examProject_bookings (
+                organizer_login_id,
+                room_id,
+                start_time,
+                end_time,
+                booking_day,
+                booking_description
+            )
+            VALUES (
+                $user_id, 
+                $room_id, 
+                '$start_time', 
+                '$end_time', 
+                '$booking_date', 
+                '$booking_description'
+            );
+        ";    
 
         $database->Query($userSQL);
 
