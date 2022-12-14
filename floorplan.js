@@ -75,7 +75,7 @@ function colorFloorplan(unavailableRooms, partlyAvailableRooms){
 
 
 /* nothing yet */
-function selectRoom(roomID, date){
+async function selectRoom(roomID, date){
     fetch("/backend_floorplan.php?roomid="+roomID+"&date="+date)
         .then(res => res.json())
         .then(data => {
