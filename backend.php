@@ -217,7 +217,7 @@ if($action == 'update') {
 // 
 // Delete booking Backend
 // 
-    if($action == 'update') {
+    if($action == 'delete') {
         $booking_id = (isset($_REQUEST['booking_id'])) ? $_REQUEST['booking_id']: "";
 
         if($booking_id !=""){
