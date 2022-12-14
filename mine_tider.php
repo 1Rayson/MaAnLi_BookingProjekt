@@ -64,29 +64,30 @@
                     <article id="bookings">
                         <?php
                         // While there's rows in the select query, fetch the object and insert its data into the template below - then echo to the user
-                         while($row = $bookings_result->fetch_object()) {
-                            echo '<form class="booking" action="backend.php?action=update" id="' . $row->booking_id . '">
+                        while($row = $bookings_result->fetch_object()) {
+                            echo '<form class="booking" action="backend.php?action=delete" method="post" name="book_id' . $row->id . '">
                             <article class="booking-details">
                                 <section class="date-time-location">
-                                    <textarea class="booking_date" readonly>' . $row->booking_day . '</textarea>
+                                    <input type="text" class="booking_date" name="booking_date" value="' . $row->booking_day . '" readonly>
                                     <article class="time-flex">
-                                        <textarea class="start_time" readonly>' . $row->start_time . '</textarea>
+                                        <input type="text" class="start_time" name="start_time" value="' . $row->start_time . '" readonly>
                                         -
-                                        <textarea class="end_time" readonly>' . $row->end_time . '</textarea>
+                                        <input type="text" class="end_time" name="end_time" value="' . $row->end_time . '" readonly>
                                     </article>
                                     <article class="room-flex" >
-                                        <textarea class="room_var" readonly>ID</textarea>
+                                        <input type="text" class="room_var" readonly>ID</input>
                                         .
-                                        <textarea class="room_number" readonly>' . $row->room_id . '</textarea>
+                                        <input type="text" class="room_number" name="room_number" value="' . $row->room_id . '" readonly>
                                     </article>
                                 </section>
                                 <section class="organizer">
-                                    <textarea class="booking_description" readonly>' . $row->booking_description . '</textarea>
+                                    <input type="text" class="booking_description" name="booking_description" value="' . $row->booking_description . '" readonly>
+                                    <input type="text" class="booking_id" name="booking_id" value="' . $row->id . '" readonly>
                                 </section>
                             </article>
                             <article class="update-delete-booking">
-                                <input type="submit" class="update-submit" value="Opdatér">
-                                <input type="submit" class="delete-submit" formaction="backend.php?action=delete" value="Slet">
+                                <input type="submit" class="update-submit" formaction="backend.php?action=update" value="Opdatér">
+                                <input type="submit" class="delete-submit" value="Slet">
                             </article>
                         </form>
                         <section class="divider">

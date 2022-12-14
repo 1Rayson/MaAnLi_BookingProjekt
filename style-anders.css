@@ -262,7 +262,7 @@ input {
   justify-content: space-between;
 }
 
-.organizer  textarea{
+.organizer input {
   font-weight: bold;
   font-size: 1em;
 }
@@ -279,8 +279,7 @@ input {
   cursor: pointer;
 }
 
-#bookings input,
-#bookings textarea {
+#bookings input{
   border: none;
   outline: 0;
   cursor: text;
@@ -288,9 +287,6 @@ input {
   font-size: 1em;
 }
 
-#bookings textarea {
-  resize: none;
-}
 
 #booking-headers h3:last-of-type{
   margin-left: 1vw;
@@ -323,6 +319,10 @@ input {
 
 .booking_description {
   width: 20vw;
+}
+
+.booking_id {
+  display:none;
 }
 
 .update-submit,
