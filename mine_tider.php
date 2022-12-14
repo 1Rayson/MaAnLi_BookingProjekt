@@ -8,11 +8,14 @@
     $mySQL = new MySQL(true);
     $user_id = $_SESSION['userToken'];
 
+    
+    // 
+    // Read own bookings
+    // 
     $bookings = "SELECT * FROM examProject_bookings
                 WHERE organizer_login_id = $user_id;";
 
     $bookings_result = $mySQL->Query($bookings);
-    $formId = uniqid();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +49,7 @@
 
             <article class="content row-reverse">
                 <?php
+                // Insert Calendar
                 $calendar = new Calendar();
                 
                 echo $calendar->show();
@@ -59,7 +63,7 @@
                     <hr>
                     <article id="bookings">
                         <?php
-
+                        // While there's rows in the select query, fetch the object and insert its data into the template below - then echo to the user
                          while($row = $bookings_result->fetch_object()) {
                             echo '<form class="booking" action="backend.php?action=update" id="' . $row->booking_id . '">
                             <article class="booking-details">
@@ -70,14 +74,14 @@
                                         -
                                         <textarea class="end_time" readonly>' . $row->end_time . '</textarea>
                                     </article>
-                                    <article class="room-flex">
-                                        <textarea class="room_var">ID</textarea>
+                                    <article class="room-flex" >
+                                        <textarea class="room_var" readonly>ID</textarea>
                                         .
-                                        <textarea class="room_number">' . $row->room_id . '</textarea>
+                                        <textarea class="room_number" readonly>' . $row->room_id . '</textarea>
                                     </article>
                                 </section>
                                 <section class="organizer">
-                                    <textarea class="booking_description">' . $row->booking_description . '</textarea>
+                                    <textarea class="booking_description" readonly>' . $row->booking_description . '</textarea>
                                 </section>
                             </article>
                             <article class="update-delete-booking">
