@@ -7,8 +7,6 @@
     $mySQL = new MySQL(true);
 
     $booking_id = $_REQUEST['booking_id'];
-    list($startHour, $startMinute) = explode(':', $_REQUEST['start-time']);
-    list($endHour, $endMinute) = explode(':', $_REQUEST['end-time']);
     $bookingDataQuery = "SELECT 
         examProject_bookings.room_id, 
         examProject_bookings.start_time, 
@@ -20,6 +18,8 @@
     INNER JOIN `examProject_rooms` ON examProject_rooms.id = examProject_bookings.room_id
     WHERE examProject_bookings.id = $booking_id;";
     $bookingData = $mySQL->Query($bookingDataQuery)->fetch_object();
+    list($startHour, $startMinute) = explode(':', $bookingData->start_time);
+    list($endHour, $endMinute) = explode(':',$bookingData->end_time);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +55,7 @@
                 <section id="chosen-date-map">
                     <article>
                         <div>
-                            <h2><input id="date" type="date" value="<?php echo $date; ?>"></h2> <!-- Dato -->
+                            <h2><input id="date" type="date" value="<?php echo $bookingData->booking_day;?>"></h2> <!-- Dato -->
                             <h3>
                                 <form method="post">
                                     <label for="start_hour">Fra:</label>
@@ -135,9 +135,11 @@
                 <div id="room-info-availability">
                     <section id="room-info">
                         <h2>Lokale</h2>
-                        <p>(Vælg lokale)</p>
+                        <p><?php echo $bookingData->floorVariable. "." .$bookingData->roomNumber;  ?></p>
                         <h2>Faciliteter</h2>
-                        <p>(Vælg lokale)</p>
+                        <p id="capacity">Antal siddepladser:<?php echo $bookingData->capacity; ?> </p>
+                        <p id="screen">Antal skærme:<?php echo $bookingData->screen; ?></p>
+                        <p id="smartboard">Antal smartboard:<?php echo $bookingData->smartBoard; ?></p>
                     </section>
                     <section id="bookingsOnTheDay">
                         
@@ -147,6 +149,12 @@
             </article>
         </section>
     </wrapper>
-    <script src="floorplan.js"></script>
+    <script>
+        document.getElementById("start_hour").value ="<?php echo $startHour;?>";
+        document.getElementById("start_minute").value ="<?php echo $startMinute;?>";
+        document.getElementById("end_hour").value = "<?php echo $endHour;?>";
+        document.getElementById("end_minute").value ="<?php echo $endMinute;?>";
+    </script>
+    <!-- <script src="floorplan.js"></script> -->
 </body>
 </html>
