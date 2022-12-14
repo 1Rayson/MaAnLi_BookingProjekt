@@ -216,20 +216,16 @@
             let endHour = document.getElementById('end_hour').value;
             let endMinute = document.getElementById('end_minute').value;
 
-            console.log("activate button?");
-
             if(date[0]!=null && startHour!="" && startMinute!="" && endHour!="" && endMinute!=""){
                 seeAvailButton.classList.remove("button-deactivated");
                 seeAvailButton.classList.add("button-activated");
 
                 seeAvailButton.addEventListener("click", function(){collectInfo()});
-                console.log("button active");
             } else {
                 seeAvailButton.classList.remove("button-activated");
                 seeAvailButton.classList.add("button-deactivated");
 
                 seeAvailButton.removeEventListener("click", function(){collectInfo()});
-                console.log("button deactive");
             }
         }
 
