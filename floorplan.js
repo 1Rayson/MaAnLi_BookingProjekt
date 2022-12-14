@@ -75,7 +75,7 @@ function colorFloorplan(unavailableRooms, partlyAvailableRooms){
 }
 
 
-/* nothing yet */
+/* not hing yet */
 async function selectRoom(roomID, date){
     fetch("/backend_floorplan.php?roomid="+roomID+"&date="+date)
         .then(res => res.json())
@@ -110,6 +110,11 @@ async function selectRoom(roomID, date){
                     `;
             });
 
+            let popUpButton = document.getElementById('book-selected-room');
+            popUpButton.classList.remove("button-deactivated");
+            popUpButton.classList.add("button-activated");
+            popUpButton.addEventListener("click", function(){popUp()});
+
             let date = document.getElementById('date').value;
             let startHour = document.getElementById('start_hour').value;
             let startMinute = document.getElementById('start_minute').value;
@@ -120,21 +125,22 @@ async function selectRoom(roomID, date){
                 <form action="backend.php?action=create&roomid=${roomID}" method="post">
                     <h2>Lokale</h2>
                     <div>
-                        <input type="text" name="room_var" value="${roomInfo[0].floorVariable}" readonly>
+                        <input type="text" name="room_var" id="pop-up-room-var" value="${roomInfo[0].floorVariable}" readonly>
                         .
-                        <input type="number" name="room_number" value="${roomInfo[0].roomNumber}" readonly>
+                        <input type="number" name="room_number" id="pop-up-room-number" value="${roomInfo[0].roomNumber}" readonly>
                     </div>
                     <h2>Dato</h2>
                     <input type="date" name="booking_date" value="${date}" readonly>
                     <h2>Tidsrum</h2>
-                    <div>
+                    <div id="timeIntervalFlex">
                         <input type="time" name="start_time" value="${startHour}:${startMinute}" readonly>
                         <p> - </p>
                         <input type="time" name="end_time" value="${endHour}:${endMinute}" readonly>
                     </div>
                     <h2>Booking beskrivelse</h2>
                     <input type="text" name="booking-description" id="booking-description-input" minlength="1" maxlength="50">
-                    <input type="submit" value="Bekræft">
+                    <br>
+                    <input type="submit" id="pop-up-submit" value="Bekræft">
                 </form>
             `;
             
@@ -147,7 +153,7 @@ async function selectRoom(roomID, date){
 
 // Gives display:block to pop-up-confirmation, making it visible and interactable
 function popUp(){
-    document.getElementById("pop-up-confirmation").style.display = "block";
+    document.getElementById("pop-up-confirmation").style.display = "flex";
 }
 
 // Gives display:none to pop-up-confirmation, making it invisible and uninteractable

@@ -1,7 +1,13 @@
 <?php
     session_start();
     if(!isset($_SESSION['userToken'])) header("location: login.php");
-    
+    if(!isset($_REQUEST['date'])
+        &&!isset($_REQUEST['start-hour'])
+        &&!isset($_REQUEST['start-minute'])
+        &&!isset($_REQUEST['end-hour'])
+        &&!isset($_REQUEST['end-minute'])
+    ) header("location: book_lokale.php");
+
     include 'classes/calendar.php';
 
     //Request the selected values to get a date, plus a start- and end time
@@ -26,11 +32,13 @@
 <body>
     <wrapper class="site-wrapper">
         <section id="pop-up-confirmation">
-            <div id="pop-up-header">
-                <img id="back-button" src="img/arrow-left-circle.svg" alt="Tilbage" onclick="popDown()">
-                <h1 id="pop-up-titel">Bekræft booking</h1>
+            <div id="centerPopUp">
+                <div id="pop-up-header">
+                    <img id="back-button" src="img/arrow-left-circle.svg" alt="Tilbage" onclick="popDown()">
+                    <h1 id="pop-up-titel">Bekræft booking</h1>
+                </div>
+                <div id="pop-up-main-content"></div>
             </div>
-            <div id="pop-up-main-content"></div>
         </section>
         <section id="header">
             <h1>Studierum booking</h1>
@@ -52,82 +60,89 @@
             <article class="content">
                 <section id="chosen-date-map">
                     <article>
-                        <div>
+                        <div onchange="activateButton()" id="time-div-on-change">
                             <h2><input id="date" type="date" value="<?php echo $date; ?>"></h2> <!-- Dato -->
-                            <h3>
-                                <form method="post">
+                            <form method="post">
+                                <div class="time-picker-flex">
                                     <label for="start_hour">Fra:</label>
                                     <select id="start_hour" name="start_hour">
-                                    <option value="01">1</option>
-                                    <option value="02">2</option>
-                                    <option value="03">3</option>
-                                    <option value="04">4</option>
-                                    <option value="05">5</option>
-                                    <option value="06">6</option>
-                                    <option value="07">7</option>
-                                    <option value="08">8</option>
-                                    <option value="09">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
+                                        <option value="01">1</option>
+                                        <option value="02">2</option>
+                                        <option value="03">3</option>
+                                        <option value="04">4</option>
+                                        <option value="05">5</option>
+                                        <option value="06">6</option>
+                                        <option value="07">7</option>
+                                        <option selected="selected" value="08">8</option>
+                                        <option value="09">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
                                     </select>
                                     <p>:</p>
                                     <select id="start_minute" name="start_minute">
-                                    <option value="00">00</option>
-                                    <option value="15">15</option>
-                                    <option value="30">30</option>
-                                    <option value="45">45</option>
+                                        <option value="00">00</option>
+                                        <option value="15">15</option>
+                                        <option value="30">30</option>
+                                        <option value="45">45</option>
                                     </select>
+                                </div>
+                                <div class="time-picker-flex">
                                     <label for="end_time">Til:</label>
                                     <select id="end_hour" name="end_hour">
-                                    <option value="01">1</option>
-                                    <option value="02">2</option>
-                                    <option value="03">3</option>
-                                    <option value="04">4</option>
-                                    <option value="05">5</option>
-                                    <option value="06">6</option>
-                                    <option value="08">8</option>
-                                    <option value="09">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
+                                        <option value="01">1</option>
+                                        <option value="02">2</option>
+                                        <option value="03">3</option>
+                                        <option value="04">4</option>
+                                        <option value="05">5</option>
+                                        <option value="06">6</option>
+                                        <option value="08">8</option>
+                                        <option value="09">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option selected="selected" value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
                                     </select>
                                     <p>:</p>
                                     <select id="end_minute" name="end_minute">
-                                    <option value="00">00</option>
-                                    <option value="15">15</option>
-                                    <option value="30">30</option>
-                                    <option value="45">45</option>
+                                        <option value="00">00</option>
+                                        <option value="15">15</option>
+                                        <option value="30">30</option>
+                                        <option value="45">45</option>
                                     </select>
-                                </form>
-                            </h3>
+                                </div>
+                            </form>
                         </div>
-                        <button id="update-time-submit" onclick="checkAvailability()">Opdatér tid</button>
+                        <button id="update-time-submit" class="button-deactivated">Opdatér tid</button>
                     </article>
+                    <div id="switch-floor">
+                        <p id="ground-floor-btn" class="floor-btns" onclick="switchFloor(0)">Ground Floor</p>
+                        <p id="first-floor-btn" class="floor-btns" onclick="switchFloor(1)">First Floor</p>
+                        <p id="second-floor-btn" class="floor-btns" onclick="switchFloor(2)">Second Floor</p>
+                    </div>
                     <div id="size-definer">
                         <div id="fixed-ratio">
                             <div id="grid-wrapper">
@@ -197,11 +212,6 @@
                             </div>
                         </div>
                     </div>
-                    <div id="switch-floor">
-                        <p id="ground-floor-btn" class="floor-btns" onclick="switchFloor(0)">Ground Floor</p>
-                        <p id="first-floor-btn" class="floor-btns" onclick="switchFloor(1)">First Floor</p>
-                        <p id="second-floor-btn" class="floor-btns" onclick="switchFloor(2)">Second Floor</p>
-                    </div>
                 </section>
                 <div id="room-info-availability">
                     <section id="room-info">
@@ -213,11 +223,30 @@
                     <section id="bookingsOnTheDay">
                         
                     </section>
-                    <button id="book-selected-room" onclick="popUp()">Book</button>
+                    <button id="book-selected-room" class="button-deactivated">Book</button>
                 </div>
             </article>
         </section>
     </wrapper>
     <script src="floorplan.js"></script>
+    <script>
+        let opdateButton = document.getElementById('update-time-submit');
+
+        function activateButton (){
+            opdateButton.classList.remove("button-deactivated");
+            opdateButton.classList.add("button-activated");
+
+            opdateButton.addEventListener("click", function(){opdateTime()});
+        }
+
+        function opdateTime (){
+            checkAvailability()
+            
+            opdateButton.classList.remove("button-activated");
+            opdateButton.classList.add("button-deactivated");
+
+            opdateButton.removeEventListener("click", function(){opdateTime()});
+        }
+    </script>
 </body>
 </html>

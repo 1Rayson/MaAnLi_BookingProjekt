@@ -345,7 +345,8 @@ input {
   margin-left: 3%;
 }
 
-#time-container label {
+#time-container label,
+#chosen-date-map label {
   margin-right: 1vw;
   width: 3vw;
 }
@@ -385,16 +386,17 @@ select {
 /* Room availability styling */
 
 #chosen-date-map {
-  width: 30vw;
+  width: 40%;
 }
 
 #room-info-availability{
   background-color: var(--light-mode-light-grey);
   border-radius: 30px;
+  padding: 5px;
+  width: 40%;
 }
 
 #room-info {
-  width: 20vw;
   padding: 10px;
 }
 
@@ -454,9 +456,10 @@ select {
 #update-time-submit,
 #book-selected-room {
   border-radius: 15px;
-  background-color: var(--light-mode-green);
-  width: 5vw;
   padding: 10px;
+  font-size: 1.2em;
+  border: none;
+  min-width: 110px;
 }
 
 #chosen-date-map {
@@ -467,9 +470,62 @@ select {
   display: flex;
   margin-bottom: 2em;
   justify-content: space-between;
+  align-items: center;
 }
 
 #chosen-date-map h2 input {
   font-size: 1.5em;
   color: var(--light-mode-seafoam);
+}
+
+#pop-up-confirmation{
+  margin: -1vh -2vw;
+  justify-content: center;
+  align-items: center;
+}
+#centerPopUp {
+ background-color: var(--light-mode-light-grey);
+ border-radius: 15px;
+ width: 50%;
+ padding: 20px;
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+ position: relative;
+}
+#pop-up-header img{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+#pop-up-confirmation h2{
+  margin-top: 2em;
+}
+#pop-up-confirmation input{
+  font-size: 1.2em;
+  background-color: var(--light-mode-light-grey);
+}
+#pop-up-confirmation #booking-description-input{
+  background-color: white;
+  padding: 5px;
+}
+#timeIntervalFlex{
+  display: flex;
+}
+#pop-up-room-var{
+  width: 1em;
+}
+#pop-up-room-number{
+  width: 2em;
+}
+#pop-up-confirmation #pop-up-submit{
+  background-color: var(--light-mode-green);
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  margin-top: 2em;
+}
+#pop-up-confirmation #pop-up-submit:hover{
+  opacity: 0.6;
 }
