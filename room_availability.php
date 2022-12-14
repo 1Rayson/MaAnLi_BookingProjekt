@@ -25,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
     <link rel="stylesheet" href="style-anders.css">
-    <link href="calendar.css" type="text/css" rel="stylesheet" />
+    <link href="classes/calendar.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="floorplan.css">
     <title>Book Lokale</title>
 </head> 
