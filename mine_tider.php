@@ -12,6 +12,7 @@
                 WHERE organizer_login_id = $user_id;";
 
     $bookings_result = $mySQL->Query($bookings);
+    $formId = uniqid();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,25 +51,6 @@
                 echo $calendar->show();
                 ?>
                 <section id="my-bookings">
-                    <form action="backend-testing.php?action=insertTestPerson" method="post">
-                                    <label for="email">
-                                        Email
-                                        <input type="text" name="email" placeholder="Email">
-                                    </label>
-                                    <label for="password">
-                                        Password
-                                        <input type="text" name="password" placeholder="Password">
-                                    </label>
-                                    <label for="fullName">
-                                        Full Name
-                                        <input type="text" name="fullName" placeholder="Full Name">
-                                    </label>
-                                    <label for="schoolInitials">
-                                        School Initials
-                                        <input type="text" name="schoolInitials" placeholder="School Initials">
-                                    </label>
-                                <input type="submit" value="Submit">
-                                </form>
                     <article id="booking-headers">
                         <h3>Dato</h3>
                         <h3>Tidsrum</h3>
@@ -76,68 +58,36 @@
                     </article>
                     <hr>
                     <article id="bookings">
-                        <section class="booking">
-                            <article class="booking-details">
-                                <section class="date-time-location">
-                                    <p>24/11-22</p>
-                                    <p>08:30-12:30</p>
-                                    <p>1.16</p>
-                                </section>
-                                <section class="organizer">
-                                    <p>Maanli -  Tværfagligt projekt - gruppe arbejde</p>
-                                </section>
-                            </article>
-                            <article class="update-delete-booking">
-                                <a href="backend-testing.php" id="update-submit">Opdatér</a>
-                                <!--<input type="submit" id="update-submit" value="Opdatér">-->
-
-                                <!-- $2y$10$WuWzwiMlbsWpg2vcqVio..IaWB30xoDbm4f944eR0Rb/8YLQf59I6 -->
-                                <a href="backend-testing.php" id="delete-submit">Slet</a>
-                                <!--<input type="submit" id="delete-submit" value="Slet">-->
-                            </article>
-                        </section>
-                        <section class="divider">
-                            <hr>
-                        </section>
-                        <section class="booking">
-                            <article class="booking-details">
-                                <section class="date-time-location">
-                                    <p>25/11-22</p>
-                                    <p>09:30-14:00</p>
-                                    <p>1.40</p>
-                                </section>
-                                <section class="organizer">
-                                    <p>Maanli -  Tværfagligt projekt - gruppe arbejde</p>
-                                </section>
-                            </article>
-                            <article class="update-delete-booking">
-                                <input type="submit" id="update-submit" value="Opdatér">
-                                <input type="submit" id="delete-submit" value="Slet">
-                            </article>
-                        </section>
                         <?php
 
                          while($row = $bookings_result->fetch_object()) {
-                            echo '<section class="booking">
-                                <article class="booking-details">
-                                    <section class="date-time-location">
-                                        <p>' . $row->booking_day . '</p>
-                                        <p>Kl. ' . $row->start_time . '-' . $row->end_time . '</p>
-                                        <p>Lokale ' . $row->room_id . '</p>
-                                    </section>
-                                    <section class="organizer">
-                                        <p>' . $row->booking_description . '</p>
-                                    </section>
-                                </article>
-                                <article class="update-delete-booking">
-                                    <a href="backend-testing.php?action=update" id="update-submit">Opdatér</a>
-                                    <a href="backend-testing.php?action=delete" id="delete-submit">Slet</a>
-                                    
-                                </article>
-                            </section>
-                            <section class="divider">
-                                <hr>
-                            </section>';
+                            echo '<form class="booking" action="backend.php?action=update" id="' . $row->booking_id . '">
+                            <article class="booking-details">
+                                <section class="date-time-location">
+                                    <textarea class="booking_date" readonly>' . $row->booking_day . '</textarea>
+                                    <article class="time-flex">
+                                        <textarea class="start_time" readonly>' . $row->start_time . '</textarea>
+                                        -
+                                        <textarea class="end_time" readonly>' . $row->end_time . '</textarea>
+                                    </article>
+                                    <article class="room-flex">
+                                        <textarea class="room_var">ID</textarea>
+                                        .
+                                        <textarea class="room_number">' . $row->room_id . '</textarea>
+                                    </article>
+                                </section>
+                                <section class="organizer">
+                                    <textarea class="booking_description">' . $row->booking_description . '</textarea>
+                                </section>
+                            </article>
+                            <article class="update-delete-booking">
+                                <input type="submit" class="update-submit" value="Opdatér">
+                                <input type="submit" class="delete-submit" formaction="backend.php?action=delete" value="Slet">
+                            </article>
+                        </form>
+                        <section class="divider">
+                            <hr>
+                        </section>';
                         }
                         ?>
 

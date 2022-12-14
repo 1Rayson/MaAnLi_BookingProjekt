@@ -244,12 +244,15 @@ input {
 
 #bookings {
   overflow-y: scroll;
+  overflow-x: hidden;
   width: 40vw;
 }
 
 .booking {
   display: flex;
   height: 7vh;
+  width:40vw;
+  overflow: hidden;
 }
 
 .booking-details {
@@ -259,8 +262,9 @@ input {
   justify-content: space-between;
 }
 
-.organizer {
+.organizer  textarea{
   font-weight: bold;
+  font-size: 1em;
 }
 
 .update-delete-booking {
@@ -275,11 +279,62 @@ input {
   cursor: pointer;
 }
 
-#update-submit {
+#bookings input,
+#bookings textarea {
+  border: none;
+  outline: 0;
+  cursor: text;
+  padding: 0;
+  font-size: 1em;
+}
+
+#bookings textarea {
+  resize: none;
+}
+
+#booking-headers h3:last-of-type{
+  margin-left: 1vw;
+}
+
+.time-flex,
+.room-flex {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.booking_date {
+  width: 5vw;
+}
+
+.start_time,
+.end_time {
+  width: 3.5vw;
+  overflow:hidden;
+}
+
+.end_time {
+  margin-right: 1vw;
+}
+
+.room_var {
+  width: 1vw;
+}
+
+.booking_description {
+  width: 20vw;
+}
+
+.update-submit,
+.delete-submit {
+  cursor: pointer !important;
+}
+
+.update-submit {
   background-color: var(--light-mode-seafoam);
 }
 
-#delete-submit {
+.delete-submit {
   background-color: var(--light-mode-red);
 }
 
