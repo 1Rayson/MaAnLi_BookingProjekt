@@ -88,7 +88,7 @@
                                 </section>
                             </article>
                             <article class="update-delete-booking">
-                                <input type="submit" class="update-submit" formaction="backend.php?action=update" value="Opdatér">
+                                <input type="submit" class="update-submit" formaction="update_tider.php?date='. $row->booking_day .'&start-time='. $row->start_time .'&end-time=' . $row->end_time . '" value="Opdatér">
                                 <input type="submit" class="delete-submit" value="Slet">
                             </article>
                         </form>
