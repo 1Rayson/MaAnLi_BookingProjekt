@@ -78,6 +78,7 @@
         </div>
     </div>
     <div id="switch-floor">
+        <!-- calls the switchFloor function and specifies what floor -->
         <p id="ground-floor-btn" class="floor-btns" onclick="switchFloor(0)">Ground Floor</p>
         <p id="first-floor-btn" class="floor-btns" onclick="switchFloor(1)">First Floor</p>
         <p id="second-floor-btn" class="floor-btns" onclick="switchFloor(2)">Second Floor</p>

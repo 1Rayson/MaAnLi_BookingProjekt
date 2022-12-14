@@ -4,7 +4,7 @@
     
     include 'classes/calendar.php';
     include_once('classes/MySQL.php');
-    // if(!isset($_SESSION['userToken'])) header("location: login.php");
+    
     if($_SESSION['userToken'] === 0 || NULL) header("location: login.php");
 
     $mySQL = new MySQL(true);
@@ -27,7 +27,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
     <link rel="stylesheet" href="style-anders.css">
-    <link href="calendar-temp.css" type="text/css" rel="stylesheet" />
+    <link href="calendar.css" type="text/css" rel="stylesheet" />
     <title>Mine Tider</title>
 </head>
 <body>
