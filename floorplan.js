@@ -116,7 +116,7 @@ function selectRoom(roomID, date){
             let endMinute = document.getElementById('end_minute').value;
 
             let popUpHtml = `
-                <form action="backend.php?action=create" method="post">
+                <form action="backend.php?action=create&roomid=${roomID}" method="post">
                     <h2>Lokale</h2>
                     <div>
                         <input type="text" name="room_var" value="${roomInfo[0].floorVariable}" readonly>

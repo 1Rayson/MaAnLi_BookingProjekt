@@ -43,29 +43,31 @@ if($action == 'login') {
 
 if($action == 'create'){
     $user_id = $_SESSION['userToken'];
-    $room_var = (isset($_REQUEST['room_var'])) ? $_REQUEST['room_var']: "";
-    $room_number = (isset($_REQUEST['room_number'])) ? $_REQUEST['room_number']: "";
+    $room_id = (isset($_REQUEST['roomid'])) ? $_REQUEST['roomid']: "";
     $start_time = (isset($_REQUEST['start_time'])) ? $_REQUEST['start_time']: "";
     $end_time = (isset($_REQUEST['end_time'])) ? $_REQUEST['end_time']: "";
     $booking_date = (isset($_REQUEST['booking_date'])) ? $_REQUEST['booking_date']: "";
     $booking_description = (isset($_REQUEST['booking-description'])) ? $_REQUEST['booking-description']: "";
     
-    $conflicting_bookings = "SELECT * FROM examProject_bookings
-                            WHERE start_time OR end_time
-                            BETWEEN startTimeVar AND endTimeVar
-                            AND WHERE booking_date = '$booking_date';";
-    $occupied = $database->Query($conflicting_bookings);
-    var_dump($occupied);
-    exit;
-    if(empty($conflicting_bookings) && $room_var !="" && $room_number !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $booking_description !="" ){
-        if ($room_var == 's') {
-            $room_var = '';
-        }
-        if ($room_number > 10) {
-            $room_number = '0' . $room_number;
-        }
+    $conflicting_bookings = "
+        SELECT *
+        FROM examProject_bookings
+        WHERE room_id = $room_id 
+        AND(
+            (
+                ('$booking_date' = booking_day AND start_time <= '$start_time') 
+                AND ('$booking_date' = booking_day AND end_time >= '$end_time')
+            )
+            OR (
+                ('$booking_date' = booking_day AND start_time BETWEEN '$start_time' AND '$end_time') 
+                OR ('$booking_date' = booking_day AND end_time BETWEEN '$start_time' AND '$end_time')
+            )
+        );
+    ";
 
-        $room_id = $room_var . $room_number;
+    $occupied = $database->Query($conflicting_bookings)->fetch_object();
+
+    if(!isset($occupied) && $room_id !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $booking_description !="" ){
 
         $userSQL = "
             INSERT INTO examProject_bookings (
