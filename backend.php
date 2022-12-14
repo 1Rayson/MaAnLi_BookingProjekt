@@ -48,14 +48,15 @@ if($action == 'create'){
     $start_time = (isset($_REQUEST['start_time'])) ? $_REQUEST['start_time']: "";
     $end_time = (isset($_REQUEST['end_time'])) ? $_REQUEST['end_time']: "";
     $booking_date = (isset($_REQUEST['booking_date'])) ? $_REQUEST['booking_date']: "";
-    $name_of_booking = (isset($_REQUEST['name_of_booking'])) ? $_REQUEST['name_of_booking']: "";
-
+    $booking_description = (isset($_REQUEST['booking-description'])) ? $_REQUEST['booking-description']: "";
+    echo $user_id ."<br>".$room_var."<br>".$room_number."<br>". $start_time."<br>". $end_time, $booking_date, $booking_description;
+    exit;
     $conflicting_bookings = "SELECT * FROM examProject_bookings
                             WHERE start_time OR end_time
                             BETWEEN startTimeVar AND endTimeVar
                             AND WHERE booking_date = '$booking_date';";
 
-    if(empty($conflicting_bookings) && $room_var !="" && $room_number !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $name_of_booking !="" ){
+    if(empty($conflicting_bookings) && $room_var !="" && $room_number !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $booking_description !="" ){
         if ($room_var == 's') {
             $room_var = '';
         }
@@ -66,7 +67,7 @@ if($action == 'create'){
         $room_id = $room_var . $room_number;
 
         $userSQL = "INSERT INTO examProject_bookings
-                    SET organizer_login_id = '$user_id', room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$name_of_booking';";    
+                    SET organizer_login_id = '$user_id', room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$booking_description';";    
 
         $database->Query($userSQL);
 
@@ -170,9 +171,9 @@ if($action == 'update') {
         $start_time = (isset($_REQUEST['start_time'])) ? $_REQUEST['start_time']: "";
         $end_time = (isset($_REQUEST['end_time'])) ? $_REQUEST['end_time']: "";
         $booking_date = (isset($_REQUEST['booking_date'])) ? $_REQUEST['booking_date']: "";
-        $name_of_booking = (isset($_REQUEST['name_of_booking'])) ? $_REQUEST['name_of_booking']: "";
+        $booking_description = (isset($_REQUEST['booking-description'])) ? $_REQUEST['booking-description']: "";
 
-        if($booking_id !="" && $room_var !="" && $room_number !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $name_of_booking !="" ){
+        if($booking_id !="" && $room_var !="" && $room_number !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $booking_description !="" ){
             if ($room_var == 's') {
                 $room_var = '';
             }
@@ -183,7 +184,7 @@ if($action == 'update') {
             $room_id = "$room_var" . "$room_number";
 
             $userSQL = "UPDATE examProject_bookings
-                        SET room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$name_of_booking'
+                        SET room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$booking_description'
                         WHERE id = '$booking_id';";
             $database->Query($userSQL);
     
