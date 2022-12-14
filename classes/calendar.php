@@ -118,13 +118,14 @@ class Calendar {
             $cellContent=null;
         }
         
-        /*$dateValue = $cellContent$this->currentMonth$this->currentYear;*/
-        
-        
-        /*return "<li id='".$this->currentDate."' class='date'>".$cellContent."</li>";*/
-
+        /**
+        * return a list item with the id of the current date, and if the $cellContent variable is null
+        * and thus the cell contains no content and isn't a date then add nothing.
+        * If $cellContent isn't null, add the class 'date'
+        * This enables us to only click on dates, plus add a specific colour to the selected date later
+        */
         return "<li id='".$this->currentDate."' ". ($cellContent==null?"":"class='date'") .">".$cellContent."</li>";
-        /*return".($cellContent==null?"<li id='".$this->currentDate."'>".$cellContent."</li>":"<li id='".$this->currentDate."' class='date'>".$cellContent."</li>";*/
+        
     }
      
     /**
