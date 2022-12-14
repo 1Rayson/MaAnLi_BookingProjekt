@@ -10,20 +10,26 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
     $endTime = $_REQUEST["end-time-input"];
 
     $unavailableQuery = "
-        SELECT examProject_rooms.id
-        FROM examProject_rooms
-        INNER JOIN examProject_bookings ON examProject_rooms.id = examProject_bookings.room_id
-        WHERE examProject_bookings.start_time < '".$date." ".$startTime."' AND examProject_bookings.end_time > '".$date." ".$endTime."'
+        SELECT room_id, id
+        FROM examProject_bookings
+        WHERE (
+            ('".$date."' = booking_day AND start_time <= '".$startTime."') 
+            AND ('".$date."' = booking_day AND end_time >= '".$endTime."')
+        )
         ;
     ";
 
     $partlyAvailableQuery = "
-        SELECT examProject_rooms.id
-        FROM examProject_rooms
-        INNER JOIN examProject_bookings ON examProject_rooms.id = examProject_bookings.room_id
-        WHERE NOT (examProject_bookings.start_time < '".$date." ".$startTime."' AND examProject_bookings.end_time > '".$date." ".$endTime."')
-        AND (examProject_bookings.start_time BETWEEN '".$date." ".$startTime."' AND '".$date." ".$endTime."') 
-            OR (examProject_bookings.end_time BETWEEN '".$date." ".$startTime."' AND '".$date." ".$endTime."')
+        SELECT room_id
+        FROM examProject_bookings
+        WHERE NOT (
+            ('".$date."' = booking_day AND start_time <= '".$startTime."') 
+            AND ('".$date."' = booking_day AND end_time >= '".$endTime."')
+        )
+        AND (
+            ('".$date."' = booking_day AND start_time BETWEEN '".$startTime."' AND '".$endTime."') 
+            OR ('".$date."' = booking_day AND end_time BETWEEN '".$startTime."' AND '".$endTime."')
+        )
         ;
     ";
 
