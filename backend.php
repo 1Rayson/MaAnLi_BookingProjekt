@@ -7,16 +7,19 @@ include("classes/mySQL.php");
 $database = new MySQL(true);
 $action = $_GET['action'] ;
 
+
 // 
 // Login Backend
 // 
 if($action == 'login') {
+    //if a session is NOT set, set userToken to be null.
     if(!isset($_SESSION['userToken'])) $_SESSION['userToken'] = NULL;
 
+    //Request email and password
     $emailLoginVar = $_REQUEST['emailLogin'];
     $passwordLoginVar = $_REQUEST['passwordLogin'];
 
-
+    //Select the id and password where the email matches the provided email
     $loginQuery = "
         SELECT id, userPassword
         FROM examProject_login
@@ -25,23 +28,28 @@ if($action == 'login') {
 
     $result = $database->Query($loginQuery)->fetch_object();
 
+    //Verify that the provided password matches the stored password
     $passVerify = password_verify($passwordLoginVar, $result->userPassword);
     
+    //If the passwords match, set userToken to the id matching the login attempt
+    //Return user to book_lokale.php
     if($passVerify){
         $_SESSION['userToken'] = $result->id;
         header("location: book_lokale.php");
         exit;
     } else {
+        //If the above fails, return to login.php and note it was a failure
         header("location: login.php?login=fail");
         exit;
     }
 }
 
+
 // 
 // Create booking Backend
 // 
-
 if($action == 'create'){
+    //Request all fields w. required data - if there's nothing in it, set it to an empty string
     $user_id = $_SESSION['userToken'];
     $room_id = (isset($_REQUEST['roomid'])) ? $_REQUEST['roomid']: "";
     $start_time = (isset($_REQUEST['start_time'])) ? $_REQUEST['start_time']: "";
@@ -49,6 +57,8 @@ if($action == 'create'){
     $booking_date = (isset($_REQUEST['booking_date'])) ? $_REQUEST['booking_date']: "";
     $booking_description = (isset($_REQUEST['booking-description'])) ? $_REQUEST['booking-description']: "";
     
+    //Select every booking with the required room_id
+    //which is also on the same date, and within the timeframe we're trying to book.
     $conflicting_bookings = "
         SELECT *
         FROM examProject_bookings
@@ -64,9 +74,10 @@ if($action == 'create'){
             )
         );
     ";
-
+    
     $occupied = $database->Query($conflicting_bookings)->fetch_object();
 
+    // If none of the above variables are empty strings, and the occupied variable is set, proceed to run an INSERT query with the provided information
     if(!isset($occupied) && $room_id !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $booking_description !="" ){
 
         $userSQL = "
@@ -90,15 +101,79 @@ if($action == 'create'){
 
         $database->Query($userSQL);
 
+        //Return to mine_tider.php
         header("location: mine_tider.php");
     } else {
+        //If the above fails, return to book_lokale.php and note it was a failure
         header("location: book_lokale.php?create=fail");
     }
 }
 
+
+// 
+// Update booking Backend
+// 
+if($action == 'update') {
+        //Request all fields w. required data - if there's nothing in it, set it to an empty string
+        $user_id = $_SESSION['userToken'];
+        $booking_id = (isset($_REQUEST['booking_id'])) ? $_REQUEST['booking_id']: "";
+        $room_id = (isset($_REQUEST['room_number'])) ? $_REQUEST['room_number']: "";
+        $start_time = (isset($_REQUEST['start_time'])) ? $_REQUEST['start_time']: "";
+        $end_time = (isset($_REQUEST['end_time'])) ? $_REQUEST['end_time']: "";
+        $booking_date = (isset($_REQUEST['booking_date'])) ? $_REQUEST['booking_date']: "";
+        $booking_description = (isset($_REQUEST['booking-description'])) ? $_REQUEST['booking-description']: "";
+
+        // If none of the above variables are empty strings, proceed to run an UPDATE query with the provided information
+        if($booking_id !="" && $room_id !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $booking_description !="" ){
+            
+            $userSQL = "UPDATE examProject_bookings
+                        SET room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$booking_description'
+                        WHERE id = '$booking_id';";
+            $database->Query($userSQL);
+    
+        //Return to mine_tider.php
+        header("location: mine_tider.php");
+    } else {
+        //If the above fails, return to update.php and note it was a failure
+        header("location: update.php?update=fail");
+    }
+}
+
+
+// 
+// Delete booking Backend
+// 
+    if($action == 'delete') {
+        //Request booking_id - if there's nothing in it, set it to an empty string
+        $booking_id = (isset($_REQUEST['booking_id'])) ? $_REQUEST['booking_id']: "";
+
+         // If booking_id is not an empty string, proceed to run a DELETE query with it
+        if($booking_id !=""){
+        
+
+            $userSQL = "DELETE FROM examProject_bookings
+                        WHERE id = '$booking_id';";
+            $database->Query($userSQL);
+        
+            //Return to mine_tider.php
+            header("location: mine_tider.php");
+        } else {
+            //If the above fails, return to mine_tider.php and note it was a failure
+            header("location: mine_tider.php?delete=fail");
+    }
+}
+
+
+
+
+
+
+
+
 // 
 // Read booking Backend
 // 
+//IKKE I BRUG(?)
 if($action == 'showOwnBookings') {
     $user_id = $_SESSION['userToken'];
 
@@ -139,6 +214,7 @@ if($action == 'showOwnBookings') {
 // 
 // Read room details Backend (+lokalets bookinger for dagen)
 // 
+//IKKE I BRUG(?)
 if($action == 'selectRoom') {
     //$room_id = ;
     //$booking_date = ;
@@ -179,59 +255,5 @@ if($action == 'selectRoom') {
     }
 }
 
-// 
-// Update booking Backend (Ikke færdig - ikke sikker på HVORDAN vi skal opdatere tiden ud fra designet)
-// 
-if($action == 'update') {
-        $user_id = $_SESSION['userToken'];
-        $booking_id = (isset($_REQUEST['booking_id'])) ? $_REQUEST['booking_id']: "";
-        $room_var = (isset($_REQUEST['room_var'])) ? $_REQUEST['room_var']: "";
-        $room_number = (isset($_REQUEST['room_number'])) ? $_REQUEST['room_number']: "";
-        $start_time = (isset($_REQUEST['start_time'])) ? $_REQUEST['start_time']: "";
-        $end_time = (isset($_REQUEST['end_time'])) ? $_REQUEST['end_time']: "";
-        $booking_date = (isset($_REQUEST['booking_date'])) ? $_REQUEST['booking_date']: "";
-        $booking_description = (isset($_REQUEST['booking-description'])) ? $_REQUEST['booking-description']: "";
-
-        if($booking_id !="" && $room_var !="" && $room_number !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $booking_description !="" ){
-            if ($room_var == 's') {
-                $room_var = '';
-            }
-            if ($room_number > 10) {
-                $room_number = '0' . $room_number;
-            }
-
-            $room_id = "$room_var" . "$room_number";
-
-            $userSQL = "UPDATE examProject_bookings
-                        SET room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$booking_description'
-                        WHERE id = '$booking_id';";
-            $database->Query($userSQL);
-    
-
-        header("location: mine_tider.php");
-    } else {
-        header("location: update.php?update=fail");
-    }
-}
-
-// 
-// Delete booking Backend
-// 
-    if($action == 'delete') {
-        $booking_id = (isset($_REQUEST['booking_id'])) ? $_REQUEST['booking_id']: "";
-
-        if($booking_id !=""){
-            
-
-            $userSQL = "DELETE FROM examProject_bookings
-                        WHERE id = '$booking_id';";
-            $database->Query($userSQL);
-        
-
-            header("location: mine_tider.php");
-        } else {
-            header("location: mine_tider.php?delete=fail");
-    }
-}
 
 ?>
