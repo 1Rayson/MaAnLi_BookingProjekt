@@ -1,12 +1,25 @@
 <?php
     session_start();
     if(!isset($_SESSION['userToken'])) header("location: login.php");
-    
+    include_once('classes/MySQL.php');
     include 'classes/calendar.php';
 
-    $date = $_REQUEST['date'];
+    $mySQL = new MySQL(true);
+
+    $booking_id = $_REQUEST['booking_id'];
     list($startHour, $startMinute) = explode(':', $_REQUEST['start-time']);
     list($endHour, $endMinute) = explode(':', $_REQUEST['end-time']);
+    $bookingDataQuery = "SELECT 
+        examProject_bookings.room_id, 
+        examProject_bookings.start_time, 
+        examProject_bookings.end_time, 
+        examProject_bookings.booking_day, 
+        examProject_bookings.booking_description,
+        examProject_rooms.* 
+    FROM `examProject_bookings`
+    INNER JOIN `examProject_rooms` ON examProject_rooms.id = examProject_bookings.room_id
+    WHERE examProject_bookings.id = $booking_id;";
+    $bookingData = $mySQL->Query($bookingDataQuery)->fetch_object();
 ?>
 <!DOCTYPE html>
 <html lang="en">
