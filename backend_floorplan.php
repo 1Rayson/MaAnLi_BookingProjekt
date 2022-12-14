@@ -4,11 +4,13 @@ include_once("classes/mySQL.php");
 
 $database = new MySQL(true);
 
+// If the requested information is present, set them to variables
 if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_REQUEST["end-time-input"])){
     $date = $_REQUEST["date"];
     $startTime = $_REQUEST["start-time-input"];
     $endTime = $_REQUEST["end-time-input"];
 
+    // Select every room that is unavailable on the given date and time
     $unavailableQuery = "
         SELECT room_id
         FROM examProject_bookings
@@ -19,6 +21,7 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
         ;
     ";
 
+    // Select everything that is partially available on the given date and time - where there's overlap, but not through the WHOLE period
     $partlyAvailableQuery = "
         SELECT room_id
         FROM examProject_bookings
@@ -32,13 +35,16 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
         )
         ;
     ";
-
+    
+    // Create two empty arrays
     $unavailableList = [];
     $partlyAvailableList = [];
-
+    
+    // Insert the query results into their respective array
     $unavailableResult = $database->Query($unavailableQuery);
     $partlyAvailableResult = $database->Query($partlyAvailableQuery);
 
+    // While there are unavailable rooms, set their id into the array of unavailable rooms
     while ($row = $unavailableResult->fetch_object()){
         $booking = [];
 
@@ -47,6 +53,7 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
         $unavailableList[] = $booking;
     }
 
+    // While there are partially available rooms, set their id into the array of partially available rooms
     while ($row = $partlyAvailableResult->fetch_object()){
         $booking = [];
 
@@ -55,6 +62,7 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
         $partlyAvailableList[] = $booking;
     }
 
+    //encode the arrays as JSON
     $json = [];
     $json["unavailableList"] = $unavailableList;
     $json["partlyAvailableList"] = $partlyAvailableList;
@@ -62,16 +70,19 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
     header("content-type: application/json");
     echo json_encode($json);
 }
+// If the requested information is not fully present, but room_id and date is, set these to variables
 else if (isset($_REQUEST["roomid"]) && isset($_REQUEST["date"])){
     $roomid = $_REQUEST["roomid"];
     $date = $_REQUEST["date"];
 
+    // Select the room's information based on the room's id
     $getRoomInfoQuery = "
         SELECT roomNumber, floorVariable, screen, capacity, smartBoard
         FROM examProject_rooms
         WHERE ".$roomid." = id;
     ";
 
+    // Select the booking's information based on the room's id and the date
     $getRoomBookingsQuery = "
         SELECT start_time, end_time, booking_description 
         FROM examProject_bookings
@@ -79,12 +90,16 @@ else if (isset($_REQUEST["roomid"]) && isset($_REQUEST["date"])){
         AND booking_day = '".$date."';
     ";
 
+    // Create 2 empty arrays
     $roomInfo = [];
     $roomBookingsInfo = [];
 
+    // Insert the query results into their respective array
     $roomInfoResult = $database->Query($getRoomInfoQuery);
     $roomBookingsInfoResult = $database->Query($getRoomBookingsQuery);
 
+    // While there's more rows of information to display about the room, set them into the info array and set the content of
+    //the info array into the roomInfo array.
     while ($row = $roomInfoResult->fetch_object()){
         $info = [];
 
@@ -97,7 +112,8 @@ else if (isset($_REQUEST["roomid"]) && isset($_REQUEST["date"])){
         $roomInfo[] = $info;
     }
 
-    // if(!$roomBookingsInfoResult){}
+    // While there's more rows of information to display about the booking, set them into the booking array and set the content of
+    //the info booking into the roomBookingsInfo array.
     while ($row = $roomBookingsInfoResult->fetch_object()){
         $booking = [];
 
@@ -108,6 +124,7 @@ else if (isset($_REQUEST["roomid"]) && isset($_REQUEST["date"])){
         $roomBookingsInfo[] = $booking;
     }
 
+    //encode the arrays as JSON
     $json = [];
     $json["roomInfo"] = $roomInfo;
     $json["roomBookingsInfo"] = $roomBookingsInfo;
