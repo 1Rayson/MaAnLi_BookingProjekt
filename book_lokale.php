@@ -121,61 +121,6 @@
                     </form>
                     <button id="submit-button">Tjek ledighed</button>
                 </section>
-
-
-                <!--<section id="my-bookings">
-                    <article id="booking-headers">
-                        <h2>Vælg dag</h2>
-                    </article>
-                    <hr>
-                    <article id="bookings">
-                        <section class="booking">
-                            <article class="booking-details">
-                                <section class="date-time-location">
-                                    <p>24/11-22</p>
-                                    <p>08:30-12:30</p>
-                                    <p>1.16</p>
-                                </section>
-                                <section class="organizer">
-                                    <p>Maanli -  Tværfagligt projekt - gruppe arbejde</p>
-                                </section>
-                            </article>
-                            <article class="update-delete-booking">
-                                <a href="backend-testing.php" id="update-submit">Opdatér</a>
-                                <input type="submit" id="update-submit" value="Opdatér">
-
-                                <form action="backend-testing.php?action=insertTestPerson" method="post">
-
-                                <input type="submit" value="Submit">
-
-                                </form>
-                                 $2y$10$WuWzwiMlbsWpg2vcqVio..IaWB30xoDbm4f944eR0Rb/8YLQf59I6
-                                <a href="backend-testing.php" id="delete-submit">Slet</a>
-                                <input type="submit" id="delete-submit" value="Slet">
-                            </article>
-                        </section>
-                        <section class="divider">
-                            <hr>
-                        </section>
-                        <section class="booking">
-                            <article class="booking-details">
-                                <section class="date-time-location">
-                                    <p>25/11-22</p>
-                                    <p>09:30-14:00</p>
-                                    <p>1.40</p>
-                                </section>
-                                <section class="organizer">
-                                    <p>Maanli -  Tværfagligt projekt - gruppe arbejde</p>
-                                </section>
-                            </article>
-                            <article class="update-delete-booking">
-                                <input type="submit" id="update-submit" value="Opdatér">
-                                <input type="submit" id="delete-submit" value="Slet">
-                            </article>
-                        </section>
-                    </article>
-                    <hr>
-                </section>-->
             </article>
         </section>
     </wrapper>
