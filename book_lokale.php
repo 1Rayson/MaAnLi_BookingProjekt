@@ -199,8 +199,7 @@
          * Then set location to be the date's id(the date), the start hour, start minute,
          * end hour and end minute to pass it along in the url for later use
          */
-        function collectInfo(){
-            console.log("collecting info");       
+        function collectInfo(){      
             window.location.href='room_availability.php?date='+ date[0].id
                 +'&start-hour='+ startHour
                 +'&start-minute='+ startMinute
@@ -210,11 +209,11 @@
         }
 
         function activateButton (){
-            let date = document.getElementsByClassName('activeDate');
-            let startHour = document.getElementById('start_hour').value;
-            let startMinute = document.getElementById('start_minute').value;
-            let endHour = document.getElementById('end_hour').value;
-            let endMinute = document.getElementById('end_minute').value;
+            date = document.getElementsByClassName('activeDate');
+            startHour = document.getElementById('start_hour').value;
+            startMinute = document.getElementById('start_minute').value;
+            endHour = document.getElementById('end_hour').value;
+            endMinute = document.getElementById('end_minute').value;
 
             if(date[0]!=null && startHour!="" && startMinute!="" && endHour!="" && endMinute!=""){
                 seeAvailButton.classList.remove("button-deactivated");
