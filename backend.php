@@ -115,24 +115,22 @@ if($action == 'create'){
 // 
 if($action == 'update') {
         //Request all fields w. required data - if there's nothing in it, set it to an empty string
-        $user_id = $_SESSION['userToken'];
         $booking_id = (isset($_REQUEST['booking_id'])) ? $_REQUEST['booking_id']: "";
-        $room_id = (isset($_REQUEST['room_number'])) ? $_REQUEST['room_number']: "";
         $start_time = (isset($_REQUEST['start_time'])) ? $_REQUEST['start_time']: "";
         $end_time = (isset($_REQUEST['end_time'])) ? $_REQUEST['end_time']: "";
         $booking_date = (isset($_REQUEST['booking_date'])) ? $_REQUEST['booking_date']: "";
         $booking_description = (isset($_REQUEST['booking-description'])) ? $_REQUEST['booking-description']: "";
 
         // If none of the above variables are empty strings, proceed to run an UPDATE query with the provided information
-        if($booking_id !="" && $room_id !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $booking_description !="" ){
+        if($booking_id !="" && $start_time !="" && $end_time !="" && $booking_date !="" && $booking_description !="" ){
             
             $userSQL = "UPDATE examProject_bookings
-                        SET room_id = '$room_id', start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$booking_description'
+                        SET start_time = '$start_time', end_time = '$end_time', booking_day = '$booking_date', booking_description = '$booking_description'
                         WHERE id = '$booking_id';";
             $database->Query($userSQL);
     
         //Return to mine_tider.php
-        header("location: mine_tider.php");
+        header("location: mine_tider.php?response=success");
     } else {
         //If the above fails, return to update.php and note it was a failure
         header("location: update.php?update=fail");

@@ -68,7 +68,7 @@
             <article class="content">
                 <section id="chosen-date-map">
                     <article>
-                        <div>
+                        <div onchange="updatePopUp()">
                             <h2><input id="date" type="date" value="<?php echo $bookingData->booking_day;?>"></h2> <!-- Dato -->
                             <h3>
                                 <form method="post">
@@ -142,7 +142,7 @@
                                 </form>
                             </h3>
                         </div>
-                        <button id="update-time-submit" onclick="checkAvailability()">Opdatér tid</button>
+                        <button id="update-time-submit" onclick="popUp()">Opdatér tid</button>
                     </article>
                     
                 </section>
@@ -175,7 +175,6 @@
                             }; 
                         ?>
                     </section>
-                    <button id="book-selected-room" onclick="popUp()">Book</button>
                 </div>
             </article>
         </section>
@@ -185,6 +184,50 @@
         document.getElementById("start_minute").value ="<?php echo $startMinute;?>";
         document.getElementById("end_hour").value = "<?php echo $endHour;?>";
         document.getElementById("end_minute").value ="<?php echo $endMinute;?>";
+    
+        function updatePopUp (){
+
+        
+            let date = document.getElementById('date').value;
+            let startHour = document.getElementById('start_hour').value;
+            let startMinute = document.getElementById('start_minute').value;
+            let endHour = document.getElementById('end_hour').value;
+            let endMinute = document.getElementById('end_minute').value;
+
+            let popUpHtml = `
+                <form action="backend.php?action=update&booking_id=<?php echo $booking_id?>" method="post">
+                    <h2>Lokale</h2>
+                    <div>
+                        <input type="text" name="room_var" value="<?php echo $bookingData->floorVariable?>" readonly>
+                        .
+                        <input type="number" name="room_number" value="<?php echo $bookingData->roomNumber?>" readonly>
+                    </div>
+                    <h2>Dato</h2>
+                    <input type="date" name="booking_date" value="${date}" readonly>
+                    <h2>Tidsrum</h2>
+                    <div>
+                        <input type="time" name="start_time" value="${startHour}:${startMinute}" readonly>
+                        <p> - </p>
+                        <input type="time" name="end_time" value="${endHour}:${endMinute}" readonly>
+                    </div>
+                    <h2>Booking beskrivelse</h2>
+                    <input type="text" name="booking-description" id="booking-description-input" minlength="1" maxlength="50" value="<?php echo $bookingData->booking_description?>">
+                    <input type="submit" value="Bekræft">
+                </form>
+            `;
+               
+            document.getElementById("pop-up-main-content").innerHTML = popUpHtml;
+        }
+           
+        // Gives display:block to pop-up-confirmation, making it visible and interactable
+        function popUp(){
+            document.getElementById("pop-up-confirmation").style.display = "block";
+        }
+
+        // Gives display:none to pop-up-confirmation, making it invisible and uninteractable
+        function popDown(){
+            document.getElementById("pop-up-confirmation").style.display = "none";
+        }
     </script>
 </body>
 </html>
