@@ -5,10 +5,8 @@
     include 'classes/calendar.php';
 
     $date = $_REQUEST['date'];
-    $startHour = $_REQUEST['start-hour'];
-    $startMinute = $_REQUEST['start-minute'];
-    $endHour = $_REQUEST['end-hour'];
-    $endMinute = $_REQUEST['end-minute'];
+    list($startHour, $startMinute) = explode(':', $_REQUEST['start-time']);
+    list($endHour, $endMinute) = explode(':', $_REQUEST['end-time']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,15 +35,7 @@
         </section>
         <section id="nav-content">
             <nav id="booking-nav-desktop">
-                <div class="nav-item active">
-                    <div><h3>|</h3></div>
-                    <a><h3>Book Lokale</h3></a>
-                </div>
-                <div class="nav-item">
-                    <div><h3>|</h3></div>
-                    <a href="mine_tider.php"><h3>Mine Tider</h3></a>
-                </div>
-                <h2 id="breadcrumb-nav-mobile">Book Lokale</h2>
+                <a href="/mine_tider.php"><img src="img/arrow-left-circle.svg" alt=""></a>
             </nav>
 
             <article class="content">
