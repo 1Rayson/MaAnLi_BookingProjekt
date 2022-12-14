@@ -1,6 +1,7 @@
 <?php
     session_start();
     if(!isset($_SESSION['userToken'])) header("location: login.php");
+    
     include_once('classes/MySQL.php');
     include 'classes/calendar.php';
 
@@ -17,9 +18,22 @@
     FROM `examProject_bookings`
     INNER JOIN `examProject_rooms` ON examProject_rooms.id = examProject_bookings.room_id
     WHERE examProject_bookings.id = $booking_id;";
+    
     $bookingData = $mySQL->Query($bookingDataQuery)->fetch_object();
+    
     list($startHour, $startMinute) = explode(':', $bookingData->start_time);
     list($endHour, $endMinute) = explode(':',$bookingData->end_time);
+    
+    $compareData = "
+        SELECT
+            start_time,
+            end_time,
+            booking_description
+        FROM `examProject_bookings`
+        WHERE room_id = $bookingData->room_id
+        AND NOT id = $booking_id;";
+    
+    $roomAvailability = $mySQL->Query($compareData);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -142,7 +156,24 @@
                         <p id="smartboard">Antal smartboard:<?php echo $bookingData->smartBoard; ?></p>
                     </section>
                     <section id="bookingsOnTheDay">
-                        
+                        <?php
+                            foreach($roomAvailability as $booking){
+                            
+                                echo "
+                                    <article class='booking-details'>
+                                        <section class='date-time-location'>
+                                            <p class='time-interval'>".$booking["start_time"]." - ".$booking["end_time"]."</p>
+                                        </section>
+                                        <section class='organizer'>
+                                            <p id='description'>".$booking["booking_description"]."</p>
+                                        </section>
+                                    </article>
+                                    <section class='divider'>
+                                            <hr>
+                                    </section>
+                                ";
+                            }; 
+                        ?>
                     </section>
                     <button id="book-selected-room" onclick="popUp()">Book</button>
                 </div>
@@ -155,6 +186,5 @@
         document.getElementById("end_hour").value = "<?php echo $endHour;?>";
         document.getElementById("end_minute").value ="<?php echo $endMinute;?>";
     </script>
-    <!-- <script src="floorplan.js"></script> -->
 </body>
 </html>
