@@ -112,7 +112,8 @@ h2 {
 #booking-nav-desktop {
   display: flex;
   flex-direction: column;
-  width: 10vw;
+  width: 15%;
+  margin-right: 3%;
 }
 
 .nav-item {
@@ -122,11 +123,11 @@ h2 {
 
 .nav-item a {
   text-decoration: none;
-  color: var(--light-mode-dark-seafoam);
+  color: var(--light-mode-seafoam);
 }
 
 .nav-item a:hover {
-  color: var(--light-mode-seafoam);
+  text-decoration: underline;
 }
 
 .nav-item div {
@@ -136,7 +137,7 @@ h2 {
 
 .active div,
 .active a {
-  color: var(--light-mode-seafoam);
+  color: var(--light-mode-dark-seafoam);
 }
 
 input {
@@ -340,37 +341,45 @@ input {
 
 /* Book lokale styling */
 #time-container {
-  width: 40vw;
-}
-
-#time-container form {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  width: 12vw;
+  width: 35%;
+  margin-left: 3%;
 }
 
 #time-container label {
   margin-right: 1vw;
   width: 3vw;
-  margin-bottom: 3vh;
+}
+.time-picker-flex {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  font-size: 1.2em;
 }
 
 select {
-  height: 5vh;
-  width: 7vh;
+  padding: 5px;
   border-radius: 15px;
   border: none;
   cursor: pointer;
   background-color: var(--light-grey);
+  font-size: 1em;
 }
 #submit-button {
-  width: 40%;
   padding: 10px;
-  background-color: var(--light-mode-green);
   border: none;
   border-radius: 15px;
-
+  font-size: 1.2em;
+}
+.button-activated{
+  background-color: var(--light-mode-green);
+}
+.button-activated:hover{
+  cursor: pointer;
+  opacity: 0.6;
+}
+.button-deactivated{
+  background-color: var(--light-mode-grey);
+  color: var(--light-mode-dark-grey);
 }
 
 /* Room availability styling */
