@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
     <link rel="stylesheet" href="style-anders.css">
-    <link href="calendar-temp.css" type="text/css" rel="stylesheet" />
+    <link href="calendar.css" type="text/css" rel="stylesheet" />
     <title>Book Lokale</title>
 </head>
 <body>
@@ -38,6 +38,7 @@
                 <section id="calendar-container">
                     <h2>Vælg dag</h2>
                     <?php
+                        // Insert calendar
                         $calendar = new Calendar();
                     
                         echo $calendar->show();
@@ -190,6 +191,12 @@
 
         seeAvailButton.classList.add("button-deactivated");
 
+        /**
+         * Set the date-variable to be the element with the class activeDate,
+         * and set the starting time and ending time based on the elements with the corresponding id's
+         * Then set location to be the date's id(the date), the start hour, start minute,
+         * end hour and end minute to pass it along in the url for later use
+         */
         function collectInfo(){
             console.log("collecting info");       
             window.location.href='room_availability.php?date='+ date[0].id

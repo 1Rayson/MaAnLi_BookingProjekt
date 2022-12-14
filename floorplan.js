@@ -3,6 +3,7 @@
 let floorIndex = 0
 switchFloor(floorIndex);
 
+
 function switchFloor(floor){
     let i;
     let floorBtns = document.getElementsByClassName('floor-btns');
@@ -144,10 +145,12 @@ async function selectRoom(roomID, date){
 
 }
 
+// Gives display:block to pop-up-confirmation, making it visible and interactable
 function popUp(){
     document.getElementById("pop-up-confirmation").style.display = "block";
 }
 
+// Gives display:none to pop-up-confirmation, making it invisible and uninteractable
 function popDown(){
     document.getElementById("pop-up-confirmation").style.display = "none";
 }
