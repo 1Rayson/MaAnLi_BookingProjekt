@@ -1,5 +1,7 @@
 <?php
     session_start();
+    if(!isset($_SESSION['userToken'])) header("location: login.php");
+    
     include 'classes/calendar.php';
 
     $date = $_REQUEST['date'];
