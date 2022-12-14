@@ -1,8 +1,7 @@
 <?php
     session_start();
     if(!isset($_SESSION['userToken'])) header("location: login.php");
-    
-    include 'classes/calendar.php';
+
     include_once('classes/MySQL.php');
     
     if($_SESSION['userToken'] === 0 || NULL) header("location: login.php");
@@ -14,8 +13,10 @@
     // 
     // Read own bookings
     // 
-    $bookings = "SELECT * FROM examProject_bookings
-                WHERE organizer_login_id = $user_id;";
+    $bookings = "SELECT examProject_bookings.*, examProject_rooms.roomNumber, examProject_rooms.roomNumber.floorVariable
+                FROM examProject_bookings
+                INNER JOIN examProject_rooms ON examProject_bookings.room_id = examProject_rooms.id
+                WHERE examProject_bookings.organizer_login_id = $user_id;";
 
     $bookings_result = $mySQL->Query($bookings);
 ?>
@@ -49,13 +50,7 @@
                 <h2 id="breadcrumb-nav-mobile">Mine Tider</h2>
             </nav>
 
-            <article class="content row-reverse">
-                <?php
-                // Insert Calendar
-                $calendar = new Calendar();
-                
-                echo $calendar->show();
-                ?>
+            <article class="content">
                 <section id="my-bookings">
                     <article id="booking-headers">
                         <h3>Dato</h3>
@@ -73,12 +68,12 @@
                                     <input type="text" class="booking_date" name="booking_date" value="' . $row->booking_day . '" readonly>
                                     <article class="time-flex">
                                         <input type="text" class="start_time" name="start_time" value="' . $row->start_time . '" readonly>
-                                        -
+                                        <p>-</p>
                                         <input type="text" class="end_time" name="end_time" value="' . $row->end_time . '" readonly>
                                     </article>
                                     <article class="room-flex" >
-                                        <input type="text" class="room_var" readonly>ID</input>
-                                        .
+                                        <input type="text" class="room_var" readonly>
+                                        <p>ID.</p>
                                         <input type="text" class="room_number" name="room_number" value="' . $row->room_id . '" readonly>
                                     </article>
                                 </section>
