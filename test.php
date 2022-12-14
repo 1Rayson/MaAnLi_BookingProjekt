@@ -9,11 +9,16 @@
 </head>
 <body>
     <?php
-include 'classes/calendar.php';
+// include 'classes/calendar.php';
  
-$calendar = new Calendar();
+// $calendar = new Calendar();
  
-echo $calendar->show();
+// echo $calendar->show();
+
+$time = '07:00';
+list ($hour, $min) = explode(':', $time);
+echo $hour.'<br>';
+echo $min;
 ?>
 </body>
 </html>
