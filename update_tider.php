@@ -2,7 +2,7 @@
     session_start();
     if(!isset($_SESSION['userToken'])) header("location: index.php");
     
-    include_once('classes/MySQL.php');
+    include_once('classes/mySQL.php');
     include 'classes/calendar.php';
 
     $mySQL = new MySQL(true);
