@@ -2,7 +2,7 @@
     session_start();
     if(!isset($_SESSION['userToken'])) header("location: index.php");
 
-    include_once('classes/MySQL.php');
+    include_once('classes/mySQL.php');
     
     if($_SESSION['userToken'] === 0 || NULL) header("location: index.php");
 
