@@ -50,7 +50,6 @@ td {
   border-bottom: 2px solid var(--light-mode-dark-grey);
 }
 
-
 #flexbox {
   display: flex;
   align-items: center;
@@ -180,7 +179,7 @@ input {
   width: 10vw;
 }
 
-#login-password{
+#login-password {
   width: 10vw;
 }
 
@@ -250,7 +249,7 @@ input {
   font-size: 1em;
 }
 
-.update-delete-booking{
+.update-delete-booking {
   display: flex;
   align-items: center;
 }
@@ -264,13 +263,13 @@ input {
   cursor: pointer;
 }
 
-#bookings input{
+#bookings input {
   border: none;
   cursor: text;
   font-size: 1em;
 }
 
-#booking-headers{
+#booking-headers {
   display: flex;
   justify-content: space-between;
   width: 75%;
@@ -285,11 +284,11 @@ input {
   width: 8em;
 }
 
-#bookings .room-flex input{
+#bookings .room-flex input {
   width: 1.5em;
   text-align: center;
 }
-#bookings .time-flex input{
+#bookings .time-flex input {
   width: 4em;
   text-align: center;
 }
@@ -299,7 +298,7 @@ input {
 }
 
 .booking_id {
-  display:none;
+  display: none;
 }
 
 .update-submit,
@@ -347,14 +346,14 @@ select {
   border-radius: 15px;
   font-size: 1.2em;
 }
-.button-activated{
+.button-activated {
   background-color: var(--light-mode-green);
 }
-.button-activated:hover{
+.button-activated:hover {
   cursor: pointer;
   opacity: 0.6;
 }
-.button-deactivated{
+.button-deactivated {
   background-color: var(--light-mode-grey);
   color: var(--light-mode-dark-grey);
 }
@@ -365,7 +364,7 @@ select {
   width: 40%;
 }
 
-#room-info-availability{
+#room-info-availability {
   background-color: var(--light-mode-light-grey);
   border-radius: 30px;
   padding: 5px;
@@ -454,54 +453,54 @@ select {
   color: var(--light-mode-seafoam);
 }
 
-#pop-up-confirmation{
+#pop-up-confirmation {
   margin: -1vh -2vw;
   justify-content: center;
   align-items: center;
 }
 #centerPopUp {
- background-color: var(--light-mode-light-grey);
- border-radius: 15px;
- width: 50%;
- padding: 20px;
- display: flex;
- align-items: center;
- flex-direction: column;
- position: relative;
+  background-color: var(--light-mode-light-grey);
+  border-radius: 15px;
+  width: 50%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
 }
-#pop-up-header img{
+#pop-up-header img {
   position: absolute;
   left: 10px;
   top: 10px;
   cursor: pointer;
 }
-#pop-up-confirmation h2{
+#pop-up-confirmation h2 {
   margin-top: 2em;
 }
-#pop-up-confirmation input{
+#pop-up-confirmation input {
   font-size: 1.2em;
   background-color: var(--light-mode-light-grey);
 }
-#pop-up-confirmation #booking-description-input{
-  background-color: white;
+#pop-up-confirmation #booking-description-input {
+  background-color: var(--light-grey);
   padding: 5px;
 }
-#timeIntervalFlex{
+#timeIntervalFlex {
   display: flex;
 }
-#pop-up-room-var{
+#pop-up-room-var {
   width: 1em;
 }
-#pop-up-room-number{
+#pop-up-room-number {
   width: 2em;
 }
-#pop-up-confirmation #pop-up-submit{
+#pop-up-confirmation #pop-up-submit {
   background-color: var(--light-mode-green);
   padding: 10px;
   border: none;
   border-radius: 15px;
   margin-top: 2em;
 }
-#pop-up-confirmation #pop-up-submit:hover{
+#pop-up-confirmation #pop-up-submit:hover {
   opacity: 0.6;
 }
