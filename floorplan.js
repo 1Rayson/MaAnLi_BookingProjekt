@@ -37,7 +37,7 @@ async function checkAvailability (){
     let endHour = document.getElementById("end_hour").value;
     let endMinute = document.getElementById("end_minute").value;
 
-    fetch("/backend_floorplan.php?date=" + date + "&start-time-input="+startHour+":"+startMinute+"&end-time-input="+endHour+":"+endMinute)
+    fetch("/backend_floorplan.php?action=checkAvail&date=" + date + "&start-time-input="+startHour+":"+startMinute+"&end-time-input="+endHour+":"+endMinute)
         .then(res => res.json())
         .then(data => colorFloorplan(data.unavailableList, data.partlyAvailableList))
 }
@@ -75,7 +75,7 @@ function colorFloorplan(unavailableRooms, partlyAvailableRooms){
 }
 
 async function selectRoom(roomID, date){
-    fetch("/backend_floorplan.php?roomid="+roomID+"&date="+date)
+    fetch("/backend_floorplan.php?action=selectRoom&roomid="+roomID+"&date="+date)
         .then(res => res.json())
         .then(data => {
             let roomInfo = data.roomInfo;

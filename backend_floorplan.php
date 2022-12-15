@@ -3,9 +3,10 @@
 include_once("classes/mySQL.php");
 
 $database = new MySQL(true);
+$action = $_REQUEST["action"];
 
 // If the requested information is present, set them to variables
-if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_REQUEST["end-time-input"])){
+if ($action == "checkAvail" && isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_REQUEST["end-time-input"])){
     $date = $_REQUEST["date"];
     $startTime = $_REQUEST["start-time-input"];
     $endTime = $_REQUEST["end-time-input"];
@@ -62,6 +63,7 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
         $partlyAvailableList[] = $booking;
     }
 
+
     //encode the arrays as JSON
     $json = [];
     $json["unavailableList"] = $unavailableList;
@@ -69,9 +71,10 @@ if (isset($_REQUEST["date"]) && isset($_REQUEST["start-time-input"]) && isset($_
 
     header("content-type: application/json");
     echo json_encode($json);
+    
 }
 // If the requested information is not fully present, but room_id and date is, set these to variables
-else if (isset($_REQUEST["roomid"]) && isset($_REQUEST["date"])){
+else if ($action == "selectRoom" && isset($_REQUEST["roomid"]) && isset($_REQUEST["date"])){
     $roomid = $_REQUEST["roomid"];
     $date = $_REQUEST["date"];
 
@@ -132,12 +135,12 @@ else if (isset($_REQUEST["roomid"]) && isset($_REQUEST["date"])){
     header("content-type: application/json");
     echo json_encode($json);
 }
-if(isset($_REQUEST["room_id"]) && isset($_REQUEST["date"]) && isset($_REQUEST["start_time"]) && isset($_REQUEST["end_time"]))
 
+if($action == "checkUpdateConflict" && isset($_REQUEST["room_id"]) && isset($_REQUEST["date"]) && isset($_REQUEST["start_time"]) && isset($_REQUEST["end_time"])){
     $room_id = $_REQUEST["room_id"];
     $booking_date = $_REQUEST["date"];
     $start_time = $_REQUEST["start_time"];
-    $end_time = $_REQUEST["end_time"];    
+    $end_time = $_REQUEST["end_time"];
 
     $conflicting_bookings = "
         SELECT *
@@ -159,4 +162,5 @@ if(isset($_REQUEST["room_id"]) && isset($_REQUEST["date"]) && isset($_REQUEST["s
 
     header("content-type: application/json");
     echo json_encode($occupied);
+}
 ?>

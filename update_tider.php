@@ -232,7 +232,7 @@
             `;
             console.log("before fetch");
 
-            let fetchUrl = `/backend_floorplan.php?room_id=<?php echo $bookingData->room_id ?>&date=${date}&start_time=${startHour}:${startMinute}&end_time=${endHour}:${endMinute}`;
+            let fetchUrl = `/backend_floorplan.php?action=checkUpdateConflict&room_id=<?php echo $bookingData->room_id ?>&date=${date}&start_time=${startHour}:${startMinute}&end_time=${endHour}:${endMinute}`;
             
             fetch(fetchUrl)
                 .then(res => res.json())
