@@ -169,24 +169,7 @@
                     <section>
                         <h2>Reservationer på dagen</h2>
                         <div id="bookingsOnTheDay">
-                            <?php
-                                foreach($roomAvailability as $booking){
-                                
-                                    echo "
-                                        <article class='booking-details'>
-                                            <section class='date-time-location'>
-                                                <p class='time-interval'>".$booking["start_time"]." - ".$booking["end_time"]."</p>
-                                            </section>
-                                            <section class='organizer'>
-                                                <p id='description'>".$booking["booking_description"]."</p>
-                                            </section>
-                                        </article>
-                                        <section class='divider'>
-                                                <hr>
-                                        </section>
-                                    ";
-                                }; 
-                            ?>
+                            
                         </div>
                     </section>
                 </div>
@@ -230,6 +213,36 @@
                     <input type="submit" id="pop-up-submit" value="Bekræft">
                 </form>
             `;
+
+            let updateBookingsUrl = `/backend_floorplan.php?action=selectRoom&roomid=<?php echo $bookingData->room_id?>&date=${date}`;
+
+            fetch(updateBookingsUrl)
+                .then(res => res.json())
+                .then(data => {
+
+                    let newBookings = data.roomBookingsInfo;
+                    let bookingsOnDayHtml = "";
+                    console.log(newBookings);
+
+                    newBookings.forEach(booking => {
+                        bookingsOnDayHtml += `
+                            <article class='booking-details'>
+                                <section class='date-time-location'>
+                                    <p class='time-interval'>${booking.start_time} - ${booking.end_time}</p>
+                                </section>
+                                <section class='organizer'>
+                                    <p id='description'>${booking.booking_description}</p>
+                                </section>
+                            </article>
+                            <section class='divider'>
+                                    <hr>
+                            </section>
+                            });
+                        `;
+                    });
+
+                    document.getElementById("bookingsOnTheDay").innerHTML = bookingsOnDayHtml;
+                });
 
             let fetchUrl = `/backend_floorplan.php?action=checkUpdateConflict&room_id=<?php echo $bookingData->room_id ?>&booking_id=<?php echo $booking_id?>&date=${date}&start_time=${startHour}:${startMinute}&end_time=${endHour}:${endMinute}`;
             
