@@ -103,9 +103,11 @@ if($action == 'create'){
 
         //Return to mine_tider.php
         header("location: mine_tider.php");
+        exit;
     } else {
         //If the above fails, return to book_lokale.php and note it was a failure
         header("location: book_lokale.php?create=fail");
+        exit;
     }
 }
 
@@ -138,8 +140,6 @@ if($action == 'update') {
                 )
             );
         ";
-
-        exit;
         
         $update_occupied = $database->Query($conflict_update)->fetch_object();
         
@@ -153,9 +153,11 @@ if($action == 'update') {
     
         //Return to mine_tider.php
         header("location: mine_tider.php?response=success");
+        exit;
     } else {
         //If the above fails, return to update.php and note it was a failure
         header("location: mine_tider.php?update=fail");
+        exit;
     }
 }
 
@@ -177,9 +179,11 @@ if($action == 'update') {
         
             //Return to mine_tider.php
             header("location: mine_tider.php");
+            exit;
         } else {
             //If the above fails, return to mine_tider.php and note it was a failure
             header("location: mine_tider.php?delete=fail");
+            exit;
     }
 }
 
