@@ -39,7 +39,7 @@ if($action == 'login') {
         exit;
     } else {
         //If the above fails, return to login.php and note it was a failure
-        header("location: login.php?login=fail");
+        header("location: index.php?login=fail");
         exit;
     }
 }

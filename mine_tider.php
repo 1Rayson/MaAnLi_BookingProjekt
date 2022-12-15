@@ -1,10 +1,10 @@
 <?php
     session_start();
-    if(!isset($_SESSION['userToken'])) header("location: login.php");
+    if(!isset($_SESSION['userToken'])) header("location: index.php");
 
     include_once('classes/MySQL.php');
     
-    if($_SESSION['userToken'] === 0 || NULL) header("location: login.php");
+    if($_SESSION['userToken'] === 0 || NULL) header("location: index.php");
 
     $mySQL = new MySQL(true);
     $user_id = $_SESSION['userToken'];
@@ -27,7 +27,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
-    <link rel="stylesheet" href="style-anders.css">
+    <link rel="stylesheet" href="style.css">
     <link href="classes/calendar.css" type="text/css" rel="stylesheet" />
     <title>Mine Tider</title>
 </head>
