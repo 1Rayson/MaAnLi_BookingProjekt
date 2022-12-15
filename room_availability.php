@@ -60,7 +60,7 @@
             <article class="content">
                 <section id="chosen-date-map">
                     <article>
-                        <div onchange="activateButton()" id="time-div-on-change">
+                        <div onchange="activateButton('update-time-submit')" id="time-div-on-change">
                             <h2><input id="date" type="date" value="<?php echo $date; ?>"></h2> <!-- Dato -->
                             <form method="post">
                                 <div class="time-picker-flex">
@@ -162,7 +162,7 @@
                                 </div>
                                 <div id="floor-1-grid">
                                     <div id="101" class="room r101">1.01</div>
-                                    <div id="108" class="room r108">1.08</div>
+                                    <div id="r108" class="unavailable">1.08</div>
                                     <div id="wc11" class="unavailable">WC and stairs</div>
                                     <div id="112" class="room r112">1.12</div>
                                     <div id="wc12" class="unavailable">WC and elevator</div>
@@ -220,8 +220,9 @@
                         <h2>Faciliteter</h2>
                         <p>(Vælg lokale)</p>
                     </section>
-                    <section id="bookingsOnTheDay">
-                        
+                    <section>
+                        <h2>Reservationer på dagen</h2>
+                        <div id="bookingsOnTheDay"></div>
                     </section>
                     <button id="book-selected-room" class="button-deactivated">Book</button>
                 </div>
@@ -230,22 +231,35 @@
     </wrapper>
     <script src="floorplan.js"></script>
     <script>
-        let opdateButton = document.getElementById('update-time-submit');
 
-        function activateButton (){
-            opdateButton.classList.remove("button-deactivated");
-            opdateButton.classList.add("button-activated");
+        function activateButton (buttonid){
 
-            opdateButton.addEventListener("click", function(){opdateTime()});
+            let button = document.getElementById(buttonid);
+
+            button.classList.remove("button-deactivated");
+            button.classList.add("button-activated");
+
+            if(buttonid == 'update-time-submit'){
+                button.addEventListener("click", function(){checkAvailability(); deactivateButton(buttonid)});
+            }
+            if (buttonid == 'book-selected-room'){
+                button.addEventListener("click", function(){popUp()});
+            }
+            
         }
 
-        function opdateTime (){
-            checkAvailability()
-            
-            opdateButton.classList.remove("button-activated");
-            opdateButton.classList.add("button-deactivated");
+        function deactivateButton (buttonid){
+            let button = document.getElementById(buttonid);
 
-            opdateButton.removeEventListener("click", function(){opdateTime()});
+            button.classList.remove("button-activated");
+            button.classList.add("button-deactivated");
+
+            if(buttonid == 'update-time-submit'){
+                button.removeEventListener("click", function(){opdateTime()});
+            }
+            if (buttonid == 'book-selected-room'){
+                button.removeEventListener("click", function(){popUp()});
+            }
         }
     </script>
 </body>

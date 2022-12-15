@@ -64,18 +64,16 @@ function colorFloorplan(unavailableRooms, partlyAvailableRooms){
         for(i=0; i<partlyAvailableRooms.length; i++){
             if (room.id == partlyAvailableRooms[i].id){
                 room.className += " partly-available";
-                room.addEventListener("click", function() {selectRoom(room.id, date)});
+                room.addEventListener("click", function() {selectRoom(room.id, date); deactivateButton('book-selected-room');});
                 return
             }
         }
     
         room.className += " available";
-        room.addEventListener("click", function() {selectRoom(room.id, date)});
+        room.addEventListener("click", function() {selectRoom(room.id, date); activateButton('book-selected-room');});
     });
 }
 
-
-/* not hing yet */
 async function selectRoom(roomID, date){
     fetch("/backend_floorplan.php?roomid="+roomID+"&date="+date)
         .then(res => res.json())
@@ -109,11 +107,6 @@ async function selectRoom(roomID, date){
                     </section>
                     `;
             });
-
-            let popUpButton = document.getElementById('book-selected-room');
-            popUpButton.classList.remove("button-deactivated");
-            popUpButton.classList.add("button-activated");
-            popUpButton.addEventListener("click", function(){popUp()});
 
             let date = document.getElementById('date').value;
             let startHour = document.getElementById('start_hour').value;
