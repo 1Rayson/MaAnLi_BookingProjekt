@@ -230,7 +230,6 @@
                     <input type="submit" id="pop-up-submit" value="Bekræft">
                 </form>
             `;
-            console.log("before fetch");
 
             let fetchUrl = `/backend_floorplan.php?action=checkUpdateConflict&room_id=<?php echo $bookingData->room_id ?>&booking_id=<?php echo $booking_id?>&date=${date}&start_time=${startHour}:${startMinute}&end_time=${endHour}:${endMinute}`;
             

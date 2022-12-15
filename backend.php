@@ -125,7 +125,8 @@ if($action == 'update') {
         $conflict_update = "
             SELECT *
             FROM examProject_bookings
-            WHERE room_id = $room_id 
+            WHERE room_id = $room_id
+            AND NOT id = $booking_id 
             AND(
                 (
                     ('$booking_date' = booking_day AND start_time <= '$start_time') 
@@ -137,6 +138,8 @@ if($action == 'update') {
                 )
             );
         ";
+
+        exit;
         
         $update_occupied = $database->Query($conflict_update)->fetch_object();
         
@@ -152,7 +155,7 @@ if($action == 'update') {
         header("location: mine_tider.php?response=success");
     } else {
         //If the above fails, return to update.php and note it was a failure
-        header("location: update_tider.php?update=fail");
+        header("location: mine_tider.php?update=fail");
     }
 }
 
