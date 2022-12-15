@@ -136,8 +136,9 @@ else if ($action == "selectRoom" && isset($_REQUEST["roomid"]) && isset($_REQUES
     echo json_encode($json);
 }
 
-if($action == "checkUpdateConflict" && isset($_REQUEST["room_id"]) && isset($_REQUEST["date"]) && isset($_REQUEST["start_time"]) && isset($_REQUEST["end_time"])){
+if($action == "checkUpdateConflict" && isset($_REQUEST["room_id"]) && isset($_REQUEST["booking_id"]) && isset($_REQUEST["date"]) && isset($_REQUEST["start_time"]) && isset($_REQUEST["end_time"])){
     $room_id = $_REQUEST["room_id"];
+    $booking_id = $_REQUEST["booking_id"];
     $booking_date = $_REQUEST["date"];
     $start_time = $_REQUEST["start_time"];
     $end_time = $_REQUEST["end_time"];
@@ -146,6 +147,7 @@ if($action == "checkUpdateConflict" && isset($_REQUEST["room_id"]) && isset($_RE
         SELECT *
         FROM examProject_bookings
         WHERE room_id = $room_id
+        AND NOT id = $booking_id
         AND(
             (
                 ('$booking_date' = booking_day AND start_time <= '$start_time') 
