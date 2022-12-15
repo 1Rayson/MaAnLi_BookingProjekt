@@ -26,6 +26,7 @@
     
     $compareData = "
         SELECT
+            booking_day,
             start_time,
             end_time,
             booking_description
@@ -168,6 +169,8 @@
                                 echo "
                                     <article class='booking-details'>
                                         <section class='date-time-location'>
+                                            <p>".$booking["booking_day"]."</p>
+                                            <br>
                                             <p class='time-interval'>".$booking["start_time"]." - ".$booking["end_time"]."</p>
                                         </section>
                                         <section class='organizer'>
@@ -201,7 +204,7 @@
             let endMinute = document.getElementById('end_minute').value;
 
             let popUpHtml = `
-                <form action="backend.php?action=update&booking_id=<?php echo $booking_id?>" method="post">
+                <form action="backend.php?action=update&booking_id=<?php echo $booking_id?>&room_id=<?php echo $bookingData->room_id?>" method="post">
                     <h2>Lokale</h2>
                     <div>
                         <input type="text" name="room_var" id="pop-up-room-var" value="<?php echo $bookingData->floorVariable?>" readonly>
