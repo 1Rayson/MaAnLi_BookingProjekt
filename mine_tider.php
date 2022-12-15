@@ -13,7 +13,7 @@
     // 
     // Read own bookings
     // 
-    $bookings = "SELECT examProject_bookings.*, examProject_rooms.roomNumber, examProject_rooms.roomNumber.floorVariable
+    $bookings = "SELECT examProject_bookings.*, examProject_rooms.roomNumber, examProject_rooms.floorVariable
                 FROM examProject_bookings
                 INNER JOIN examProject_rooms ON examProject_bookings.room_id = examProject_rooms.id
                 WHERE examProject_bookings.organizer_login_id = $user_id;";
@@ -62,6 +62,12 @@
                         <?php
                         // While there's rows in the select query, fetch the object and insert its data into the template below - then echo to the user
                         while($row = $bookings_result->fetch_object()) {
+                            $newRoomNumber = $row->roomNumber;
+
+                            if($newRoomNumber < 10){
+                                $newRoomNumber = "0".$row->roomNumber;
+                            }
+
                             echo '<form class="booking" action="backend.php?action=delete" method="post" name="book_id' . $row->id . '">
                             <article class="booking-details">
                                 <section class="date-time-location">
@@ -72,9 +78,9 @@
                                         <input type="text" class="end_time" name="end_time" value="' . $row->end_time . '" readonly>
                                     </article>
                                     <article class="room-flex" >
-                                        <input type="text" class="room_var" readonly>
-                                        <p>ID.</p>
-                                        <input type="text" class="room_number" name="room_number" value="' . $row->room_id . '" readonly>
+                                        <input type="text" class="room_var" value="'.$row->floorVariable.'" readonly>
+                                        <p>.</p>
+                                        <input type="text" class="room_number" name="room_number" value="' . $newRoomNumber . '" readonly>
                                     </article>
                                 </section>
                                 <section class="organizer">
