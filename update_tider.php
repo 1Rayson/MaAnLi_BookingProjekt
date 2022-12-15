@@ -8,21 +8,23 @@
     $mySQL = new MySQL(true);
 
     $booking_id = $_REQUEST['booking_id'];
-    $bookingDataQuery = "SELECT 
-        examProject_bookings.room_id, 
-        examProject_bookings.start_time, 
-        examProject_bookings.end_time, 
-        examProject_bookings.booking_day, 
-        examProject_bookings.booking_description,
-        examProject_rooms.* 
-    FROM `examProject_bookings`
-    INNER JOIN `examProject_rooms` ON examProject_rooms.id = examProject_bookings.room_id
-    WHERE examProject_bookings.id = $booking_id;";
+    $bookingDataQuery = "
+        SELECT 
+            examProject_bookings.room_id, 
+            examProject_bookings.start_time, 
+            examProject_bookings.end_time, 
+            examProject_bookings.booking_day, 
+            examProject_bookings.booking_description,
+            examProject_rooms.* 
+        FROM `examProject_bookings`
+        INNER JOIN `examProject_rooms` ON examProject_rooms.id = examProject_bookings.room_id
+        WHERE examProject_bookings.id = $booking_id;
+    ";
     
     $bookingData = $mySQL->Query($bookingDataQuery)->fetch_object();
     
     list($startHour, $startMinute) = explode(':', $bookingData->start_time);
-    list($endHour, $endMinute) = explode(':',$bookingData->end_time);
+    list($endHour, $endMinute) = explode(':', $bookingData->end_time);
     
     $compareData = "
         SELECT
@@ -31,7 +33,9 @@
             booking_description
         FROM `examProject_bookings`
         WHERE room_id = $bookingData->room_id
-        AND NOT id = $booking_id;";
+        AND booking_day = '$bookingData->booking_day'
+        AND NOT id = $booking_id;
+    ";
     
     $roomAvailability = $mySQL->Query($compareData);
 ?>
@@ -161,25 +165,28 @@
                         <p id="screen">Antal skærme:<?php echo $bookingData->screen; ?></p>
                         <p id="smartboard">Antal smartboard:<?php echo $bookingData->smartBoard; ?></p>
                     </section>
-                    <section id="bookingsOnTheDay">
-                        <?php
-                            foreach($roomAvailability as $booking){
-                            
-                                echo "
-                                    <article class='booking-details'>
-                                        <section class='date-time-location'>
-                                            <p class='time-interval'>".$booking["start_time"]." - ".$booking["end_time"]."</p>
+                    <section>
+                        <h2>Reservationer på dagen</h2>
+                        <div id="bookingsOnTheDay">
+                            <?php
+                                foreach($roomAvailability as $booking){
+                                
+                                    echo "
+                                        <article class='booking-details'>
+                                            <section class='date-time-location'>
+                                                <p class='time-interval'>".$booking["start_time"]." - ".$booking["end_time"]."</p>
+                                            </section>
+                                            <section class='organizer'>
+                                                <p id='description'>".$booking["booking_description"]."</p>
+                                            </section>
+                                        </article>
+                                        <section class='divider'>
+                                                <hr>
                                         </section>
-                                        <section class='organizer'>
-                                            <p id='description'>".$booking["booking_description"]."</p>
-                                        </section>
-                                    </article>
-                                    <section class='divider'>
-                                            <hr>
-                                    </section>
-                                ";
-                            }; 
-                        ?>
+                                    ";
+                                }; 
+                            ?>
+                        </div>
                     </section>
                 </div>
             </article>
@@ -191,7 +198,7 @@
         document.getElementById("end_hour").value = "<?php echo $endHour;?>";
         document.getElementById("end_minute").value ="<?php echo $endMinute;?>";
     
-        function updatePopUp (){
+        async function updatePopUp() {
 
             let updateTimeButton = document.getElementById('update-time-submit');
             let date = document.getElementById('date').value;
@@ -222,13 +229,28 @@
                     <input type="submit" id="pop-up-submit" value="Bekræft">
                 </form>
             `;
-               
+            console.log("before fetch");
+
+            let fetchUrl = `/backend_floorplan.php?room_id=<?php echo $bookingData->room_id ?>&date=${date}&start_time=${startHour}:${startMinute}&end_time=${endHour}:${endMinute}`;
+            
+            fetch(fetchUrl)
+                .then(res => res.json())
+                .then(data => {
+
+                    if(!data){
+                        updateTimeButton.classList.remove("button-deactivated");
+                        updateTimeButton.classList.add("button-activated");
+
+                        updateTimeButton.addEventListener("click", function(){popUp()});
+                    } else {
+                        updateTimeButton.classList.remove("button-activated");
+                        updateTimeButton.classList.add("button-deactivated");
+
+                        updateTimeButton.removeEventListener("click", function(){popUp()});
+                    }
+                });
+            
             document.getElementById("pop-up-main-content").innerHTML = popUpHtml;
-
-            updateTimeButton.classList.remove("button-deactivated");
-            updateTimeButton.classList.add("button-activated");
-
-            updateTimeButton.addEventListener("click", function(){popUp()});
         }
            
         // Gives display:block to pop-up-confirmation, making it visible and interactable

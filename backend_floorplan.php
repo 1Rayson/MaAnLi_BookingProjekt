@@ -132,5 +132,31 @@ else if (isset($_REQUEST["roomid"]) && isset($_REQUEST["date"])){
     header("content-type: application/json");
     echo json_encode($json);
 }
+if(isset($_REQUEST["room_id"]) && isset($_REQUEST["date"]) && isset($_REQUEST["start_time"]) && isset($_REQUEST["end_time"]))
 
+    $room_id = $_REQUEST["room_id"];
+    $booking_date = $_REQUEST["date"];
+    $start_time = $_REQUEST["start_time"];
+    $end_time = $_REQUEST["end_time"];    
+
+    $conflicting_bookings = "
+        SELECT *
+        FROM examProject_bookings
+        WHERE room_id = $room_id
+        AND(
+            (
+                ('$booking_date' = booking_day AND start_time <= '$start_time') 
+                AND ('$booking_date' = booking_day AND end_time >= '$end_time')
+            )
+            OR (
+                ('$booking_date' = booking_day AND start_time BETWEEN '$start_time' AND '$end_time') 
+                OR ('$booking_date' = booking_day AND end_time BETWEEN '$start_time' AND '$end_time')
+            )
+        );
+    ";
+    
+    $occupied = $database->Query($conflicting_bookings)->fetch_object();
+
+    header("content-type: application/json");
+    echo json_encode($occupied);
 ?>
